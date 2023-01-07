@@ -1,4 +1,4 @@
-import { NominatedBookListCarousel } from '@components/organisms/NominatedBookListCarousel';
+import { BookCarousel } from '@components/organisms/BookCarousel';
 import { Header } from '@components/organisms/Header';
 import 'react-multi-carousel/lib/styles.css';
 
@@ -6,9 +6,9 @@ export default function Home() {
   return (
     <>
       <Header />
-      <NominatedBookListCarousel year={2022} />
-      <NominatedBookListCarousel year={2021} />
-      <NominatedBookListCarousel year={2020} />
+      <BookCarousel year={2022} />
+      <BookCarousel year={2021} />
+      <BookCarousel year={2020} />
     </>
   );
 }

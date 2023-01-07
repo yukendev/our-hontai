@@ -1,6 +1,6 @@
 import { Box } from '@chakra-ui/react';
 import { BookItem } from '@components/atoms/BookItem';
-import { NominatedBookListTitle } from '@components/molecules/NominatedBookListTitle';
+import { BookCarouselTitle } from '@components/molecules/BookCarouselTitle';
 import Carousel from 'react-multi-carousel';
 
 // 開発用のダミーデータ
@@ -32,17 +32,17 @@ const responsive = {
   },
 };
 
-type NominatedBookListCarouselProps = {
+type BookCarouselProps = {
   year: number;
 };
 
-export const NominatedBookListCarousel = (props: NominatedBookListCarouselProps): JSX.Element => {
+export const BookCarousel = (props: BookCarouselProps): JSX.Element => {
   const { year } = props;
 
   return (
     <>
       <Box mt='50px' mx='auto' maxWidth={800}>
-        <NominatedBookListTitle year={year} />
+        <BookCarouselTitle year={year} />
         <Carousel infinite={true} ssr={true} responsive={responsive}>
           {dummyBookImgSrc.map((src, idx) => (
             <BookItem key={idx} src={src} />
