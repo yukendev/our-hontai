@@ -1,7 +1,7 @@
 import { BookList } from '@components/organisms/BookList';
 import { Header } from '@components/organisms/Header';
 
-export default function NominatedBooks() {
+export default function NominatedBooksPage() {
   return (
     <>
       <Header />
