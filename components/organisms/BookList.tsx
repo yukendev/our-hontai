@@ -29,13 +29,7 @@ export const BookList = (props: BookListProps): JSX.Element => {
         <Box my={10} textAlign='center'>
           <BookListTitle year={year} />
         </Box>
-        <Wrap
-          justify='center'
-          // mx='auto'
-          spacing='30px'
-          // w={{ base: '380px', md: '570px', lg: '760px' }}
-          maxWidth={950}
-        >
+        <Wrap justify='center' spacing='30px' maxWidth={950}>
           {dummyBookImgSrc.map((src, idx) => {
             return (
               <WrapItem key={idx}>
