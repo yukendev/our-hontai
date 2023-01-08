@@ -1,10 +1,10 @@
 import { Flex, Link, Spacer, Text } from '@chakra-ui/react';
 
-type NominatedBookCarouselTitleProps = {
+type BookCarouselTitleProps = {
   year: number;
 };
 
-export const BookCarouselTitle = (props: NominatedBookCarouselTitleProps): JSX.Element => {
+export const BookCarouselTitle = (props: BookCarouselTitleProps): JSX.Element => {
   const { year } = props;
 
   return (
