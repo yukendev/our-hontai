@@ -1,4 +1,4 @@
-import { Box, Wrap, WrapItem } from '@chakra-ui/react';
+import { Box, Flex, Wrap, WrapItem } from '@chakra-ui/react';
 import { BookItem } from '@components/atoms/BookItem';
 import { BookListTitle } from '@components/molecules/BookListTitle';
 
@@ -24,19 +24,27 @@ export const BookList = (props: BookListProps): JSX.Element => {
   const { year } = props;
 
   return (
-    <Box mx='auto'>
-      <Box mx='auto'>
-        <BookListTitle year={year} />
+    <Flex justify='center'>
+      <Box>
+        <Box my={10} textAlign='center'>
+          <BookListTitle year={year} />
+        </Box>
+        <Wrap
+          justify='center'
+          // mx='auto'
+          spacing='30px'
+          // w={{ base: '380px', md: '570px', lg: '760px' }}
+          maxWidth={950}
+        >
+          {dummyBookImgSrc.map((src, idx) => {
+            return (
+              <WrapItem key={idx}>
+                <BookItem src={src} />
+              </WrapItem>
+            );
+          })}
+        </Wrap>
       </Box>
-      <Wrap mx='auto' spacing='30px' w={{ base: '320px', md: '480px', lg: '640px' }}>
-        {dummyBookImgSrc.map((src, idx) => {
-          return (
-            <WrapItem key={idx}>
-              <BookItem src={src} />
-            </WrapItem>
-          );
-        })}
-      </Wrap>
-    </Box>
+    </Flex>
   );
 };
