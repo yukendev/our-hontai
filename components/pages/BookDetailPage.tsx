@@ -4,6 +4,7 @@ import { BookInfoButtons } from '@components/organisms/BookDetailButtons';
 import { BookInfo } from '@components/organisms/BookInfo';
 import { Header } from '@components/organisms/Header';
 import { OurReview } from '@components/organisms/OurReview';
+import { ReviewModal } from '@components/organisms/ReviewModal';
 
 export const BookDetailPage = (): JSX.Element => {
   return (
@@ -16,6 +17,7 @@ export const BookDetailPage = (): JSX.Element => {
       <Box mt={12}>
         <OurReview />
       </Box>
+      {/* <ReviewModal /> */}
     </Box>
   );
 };

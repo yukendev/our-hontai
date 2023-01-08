@@ -9,10 +9,10 @@ export const BookInfoButtons = (): JSX.Element => {
       <Box my={8}>
         <AlreadyReadButton />
       </Box>
-      {/* <Box my={8}>
+      <Box my={8}>
         <ReviewButton />
       </Box>
-      <Box my={8}>
+      {/* <Box my={8}>
         <RecordReadingButton />
       </Box> */}
     </Box>
