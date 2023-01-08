@@ -5,7 +5,7 @@ import { BookInfo } from '@components/organisms/BookInfo';
 import { Header } from '@components/organisms/Header';
 import { OurReview } from '@components/organisms/OurReview';
 
-export const BookDetail = (): JSX.Element => {
+export const BookDetailPage = (): JSX.Element => {
   return (
     <Box my={{ base: '16px', md: '24px' }} maxWidth={800} mx={{ base: '24px', md: 'auto' }}>
       <BookInfo />
