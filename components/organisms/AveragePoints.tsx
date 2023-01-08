@@ -8,11 +8,11 @@ export const AveragePoints = (): JSX.Element => {
         みんなの平均評価
       </Text>
       <Flex>
-        <PointStar color='#FFB26B' />
-        <PointStar color='#FFB26B' />
-        <PointStar color='#FFB26B' />
-        <PointStar color='#FFB26B' />
-        <PointStar color='#FFB26B' />
+        <PointStar size={40} color='#FFB26B' />
+        <PointStar size={40} color='#FFB26B' />
+        <PointStar size={40} color='#FFB26B' />
+        <PointStar size={40} color='#FFB26B' />
+        <PointStar size={40} color='#FFB26B' />
       </Flex>
     </Box>
   );

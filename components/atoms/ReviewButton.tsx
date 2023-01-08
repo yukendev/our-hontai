@@ -9,6 +9,7 @@ export const ReviewButton = (): JSX.Element => {
       mx={{ base: '24px', md: 'auto' }}
       maxWidth={600}
       bg='myTheme.darkOrange'
+      onClick={() => console.log('ほげ')}
     >
       <Text fontSize='lg' fontWeight='bold'>
         この本の評価・感想を書く
