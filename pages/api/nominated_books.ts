@@ -1,13 +1,12 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { connectDB } from 'server/middlewares/mongoose';
-import { BookModel } from 'server/models/book';
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const { method } = req;
     switch (method) {
       case 'GET':
-        // const data = await BookModel.find();
+        // const data = await Book.find();
 
         // res.status(200).json(data);
 
