@@ -1,15 +1,15 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { connectDB } from 'server/middlewares/mongoose';
 
+import { BookService } from 'server/services/book';
+
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const { method } = req;
     switch (method) {
       case 'GET':
-        // const data = await Book.find();
-
-        // res.status(200).json(data);
-
+        const data = await BookService.getNominatedBooksByYear(2022); // dummy data
+        res.status(200).json(data);
         break;
       default:
         res.setHeader('Allow', ['GET', 'PUT']);
