@@ -1,5 +1,4 @@
 import { IReviewDocument, IReviewModel } from 'interface/models/review';
-import { ObjectId } from 'mongodb';
 import mongoose, { Schema } from 'mongoose';
 import { getOrCreateModel } from 'server/utils/mongoose';
 
