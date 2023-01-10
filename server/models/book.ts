@@ -1,4 +1,4 @@
-import { IBookDocument, IBookModel } from 'interface/model/book';
+import { IBookDocument, IBookModel } from 'interface/models/book';
 import mongoose, { models } from 'mongoose';
 
 const modelName = 'books';
