@@ -12,8 +12,4 @@ const UserSchema = new mongoose.Schema<IUserDocument>({
   image: { type: String, required: true },
 });
 
-UserSchema.statics.getNominatedBooksByYear = function (year: number) {
-  return this.find({ year });
-};
-
-export const BookModel = getOrCreateModel<IUserDocument, IUserModel>('users', UserSchema);
+export const BookModel = getOrCreateModel<IUserDocument, IUserModel>('User', UserSchema);

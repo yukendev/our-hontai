@@ -13,4 +13,4 @@ BookSchema.statics.getNominatedBooksByYear = function (year: number) {
   return this.find({ year });
 };
 
-export const BookModel = getOrCreateModel<IBookDocument, IBookModel>('books', BookSchema);
+export const BookModel = getOrCreateModel<IBookDocument, IBookModel>('Book', BookSchema);
