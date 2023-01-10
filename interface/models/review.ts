@@ -2,9 +2,9 @@ import { Model, Types } from 'mongoose';
 
 // interface for property
 export interface IReview {
-  book_id: Types.ObjectId;
-  reviewer_id: Types.ObjectId;
-  content: string;
+  book_id: Types.ObjectId; // コメントがついた本
+  reviewer_id: Types.ObjectId; // コメントした人
+  content: string; // コメント
 }
 
 // interface for methods

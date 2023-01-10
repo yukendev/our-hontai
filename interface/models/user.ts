@@ -3,10 +3,10 @@ import { UserStatus } from 'server/models/user';
 
 // interface for property
 export interface IUser {
-  email: string;
-  username: string;
-  status: UserStatus;
-  image: string;
+  email: string; // メールアドレス
+  username: string; // 表示名
+  status: UserStatus; // 状態
+  image: string; // プロフ画像のGCSへのパス
 }
 
 // interface for methods
