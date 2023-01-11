@@ -8,4 +8,10 @@ export default NextAuth({
       clientSecret: process.env.GOOGLE_SECRET ?? '',
     }),
   ],
+  callbacks: {
+    async signIn({ user, account, profile, email, credentials }) {
+      // ユーザーがDBになければ作成
+      return true;
+    },
+  },
 });
