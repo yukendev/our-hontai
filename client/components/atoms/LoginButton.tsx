@@ -1,9 +1,5 @@
-import { Button } from '@chakra-ui/react';
+import { signIn } from 'next-auth/react';
 
 export const LoginButton = (): JSX.Element => {
-  return (
-    <Button bg='transparent' _hover={{ bg: 'transparent' }}>
-      ログイン
-    </Button>
-  );
+  return <button onClick={() => signIn()}>ログイン</button>;
 };
