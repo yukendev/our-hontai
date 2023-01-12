@@ -6,9 +6,6 @@ import 'react-multi-carousel/lib/styles.css';
 
 export default function Home() {
   const { data: session } = useSession();
-  useEffect(() => {
-    console.log(session);
-  });
   return (
     <>
       <Header />

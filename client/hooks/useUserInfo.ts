@@ -1,5 +1,6 @@
 import { IUserInfo } from 'interface/userInfo';
 import { useSession } from 'next-auth/react';
+import { UserStatus } from 'server/models/user';
 
 export const useUserInfo = (): IUserInfo => {
   const { data: session } = useSession();
@@ -14,12 +15,13 @@ export const useUserInfo = (): IUserInfo => {
     return result;
   }
 
-  const userInfo = {
-    email: user.email ?? '',
-    username: user.name ?? '',
-    status: 'active',
-    image: user.image ?? '',
+  return {
+    isLogedIn: session !== null,
+    user: {
+      email: user.email ?? '',
+      username: user.name ?? '',
+      status: 'active',
+      image: user.image ?? '',
+    },
   };
-
-  return Object.assign(result, userInfo);
 };
