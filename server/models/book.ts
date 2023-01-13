@@ -9,8 +9,8 @@ const BookSchema = new mongoose.Schema<IBookDocument>({
   isGrandPrize: { type: Boolean, required: true },
 });
 
-BookSchema.statics.getNominatedBooksByYear = function (year: number) {
-  return this.find({ year });
+BookSchema.statics.getNominatedBooksByYear = async function (year: number) {
+  return this.find({ year }).exec();
 };
 
 export const BookModel = getOrCreateModel<IBookDocument, IBookModel>('Book', BookSchema);

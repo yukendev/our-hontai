@@ -1,6 +1,5 @@
 import { IUserInfo } from 'interface/userInfo';
 import { useSession } from 'next-auth/react';
-import { UserStatus } from 'server/models/user';
 
 export const useUserInfo = (): IUserInfo => {
   const { data: session } = useSession();
