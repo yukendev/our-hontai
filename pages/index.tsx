@@ -48,9 +48,6 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 
   const jsonData = JSON.parse(JSON.stringify(books));
 
-  console.log('stringify', JSON.stringify(books));
-  console.log('json', jsonData);
-
   return {
     props: {
       books: jsonData,
