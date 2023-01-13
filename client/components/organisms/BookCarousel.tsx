@@ -1,6 +1,7 @@
 import { Box } from '@chakra-ui/react';
 import { BookItem } from '@components/atoms/BookItem';
 import { BookCarouselTitle } from '@components/molecules/BookCarouselTitle';
+import { IBook } from 'interface/models/book';
 import Carousel from 'react-multi-carousel';
 
 // 開発用のダミーデータ
@@ -34,19 +35,20 @@ const responsive = {
 
 type BookCarouselProps = {
   year: number;
+  books: IBook[];
 };
 
 export const BookCarousel = (props: BookCarouselProps): JSX.Element => {
-  const { year } = props;
+  const { year, books } = props;
 
   return (
     <>
       <Box mt='50px' mx='auto' maxWidth={800}>
         <BookCarouselTitle year={year} />
         <Carousel infinite={true} ssr={true} responsive={responsive}>
-          {dummyBookImgSrc.map((src, idx) => (
-            <BookItem key={idx} src={src} />
-          ))}
+          {books.map((book, idx) => {
+            return <BookItem key={idx} book={book} />;
+          })}
         </Carousel>
       </Box>
     </>
