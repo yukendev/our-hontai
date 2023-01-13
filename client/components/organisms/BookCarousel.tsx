@@ -46,9 +46,9 @@ export const BookCarousel = (props: BookCarouselProps): JSX.Element => {
       <Box mt='50px' mx='auto' maxWidth={800}>
         <BookCarouselTitle year={year} />
         <Carousel infinite={true} ssr={true} responsive={responsive}>
-          {books.map((book, idx) => (
-            <BookItem key={idx} book={book} />
-          ))}
+          {books.map((book, idx) => {
+            return <BookItem key={idx} book={book} />;
+          })}
         </Carousel>
       </Box>
     </>

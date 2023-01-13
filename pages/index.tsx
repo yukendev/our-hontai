@@ -2,7 +2,6 @@ import { BookCarousel } from '@components/organisms/BookCarousel';
 import { Header } from '@components/organisms/Header';
 import { IBook } from 'interface/models/book';
 import { GetStaticProps } from 'next';
-import { useSession } from 'next-auth/react';
 import 'react-multi-carousel/lib/styles.css';
 import { BookService } from 'server/services/book';
 
@@ -16,7 +15,7 @@ export default function Home(props: Props) {
       <Header />
       {years.map((year) => {
         const nominatedBooks = books[year];
-        <BookCarousel year={Number(year)} books={nominatedBooks} />;
+        return <BookCarousel key={year} year={Number(year)} books={nominatedBooks} />;
       })}
     </>
   );
@@ -30,7 +29,6 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 
   try {
     // 指定された年の本の情報を一気に取得
-    console.log('いいい');
     const result = await Promise.all(
       years.map((year) => {
         return BookService.getNominatedBooksByYear(Number(year));
@@ -48,9 +46,14 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
     console.log(err);
   }
 
+  const jsonData = JSON.parse(JSON.stringify(books));
+
+  console.log('stringify', JSON.stringify(books));
+  console.log('json', jsonData);
+
   return {
     props: {
-      books,
+      books: jsonData,
     },
   };
 };
