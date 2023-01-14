@@ -12,4 +12,4 @@ const UserSchema = new mongoose.Schema<IUserDocument>({
   image: { type: String, required: true },
 });
 
-export const BookModel = getOrCreateModel<IUserDocument, IUserModel>('User', UserSchema);
+export const UserModel = getOrCreateModel<IUserDocument, IUserModel>('User', UserSchema);
