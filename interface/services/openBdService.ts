@@ -1,5 +1,5 @@
-import { IBookDetail } from 'interface/bookDetail';
+import { IBookMeta } from 'interface/bookMeta';
 
 export interface IOpenBdService {
-  getBookDetailByIsbn: (isbn: number) => Promise<IBookDetail>;
+  getBookMetaByIsbn: (isbn: number) => Promise<IBookMeta>;
 }

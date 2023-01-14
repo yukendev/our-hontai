@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { connectDB } from 'server/middlewares/mongoose';
 import { BookModel } from 'server/models/book';
+import { BookService } from 'server/services/book';
 import { OpenBdService } from 'server/services/openBdService';
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
@@ -14,7 +15,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         if (isNaN(isbn) || query.isbn?.length != 13) {
           res.status(500).json({ statusCode: 400, message: 'invalid query parameter' });
         } else {
-          const data = await OpenBdService.getBookDetailByIsbn(isbn);
+          const data = await BookService.getBookInfoByIsbn(isbn);
           res.status(200).json(data);
         }
         break;
