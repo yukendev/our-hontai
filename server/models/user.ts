@@ -12,4 +12,12 @@ const UserSchema = new mongoose.Schema<IUserDocument>({
   image: { type: String, required: true },
 });
 
+UserSchema.statics.getById = async function (id: string) {
+  return this.findById(id).exec();
+};
+
+UserSchema.statics.getByEmail = async function (email: string) {
+  return this.findOne({ email }).exec();
+};
+
 export const UserModel = getOrCreateModel<IUserDocument, IUserModel>('User', UserSchema);
