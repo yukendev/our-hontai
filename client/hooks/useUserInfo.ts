@@ -17,9 +17,10 @@ export const useUserInfo = (): IUserInfo => {
   return {
     isLogedIn: session !== null,
     user: {
+      _id: user._id,
       email: user.email ?? '',
-      username: user.name ?? '',
-      status: 'active',
+      username: user.username ?? '',
+      status: user.status,
       image: user.image ?? '',
     },
   };
