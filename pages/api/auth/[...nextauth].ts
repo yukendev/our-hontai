@@ -33,7 +33,6 @@ export default NextAuth({
     },
     async session({ session }) {
       try {
-        console.log('がが', session);
         const userInDb = await UserService.getByEmail(session.user?.email ?? '');
         if (userInDb) {
           // override session.user with data in DB
