@@ -1,3 +1,4 @@
+import { IBookInfo } from 'interface/bookInfo';
 import { IBook } from 'interface/models/book';
 import { IBookService } from 'interface/services/book';
 import { BookModel } from 'server/models/book';
@@ -12,7 +13,7 @@ export const BookService: IBookService = {
     return BookModel.getNominatedBooksByYear(year);
   },
 
-  async getBookInfoByIsbn(isbn: number): Promise<IBook> {
+  async getBookInfoByIsbn(isbn: number): Promise<IBookInfo> {
     return new Promise(async (resolve, reject) => {
       try {
         const bookMeta = await OpenBdService.getBookMetaByIsbn(isbn);
