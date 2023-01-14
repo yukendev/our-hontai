@@ -20,4 +20,5 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 };
 
-export default connectDB(handler);
+// export default connectDB(handler);
+export default handler;
