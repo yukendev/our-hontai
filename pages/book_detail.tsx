@@ -1,16 +1,33 @@
 import { Box } from '@chakra-ui/react';
-import { AveragePoints } from '@components/organisms/AveragePoints';
-import { BookInfoButtons } from '@components/organisms/BookDetailButtons';
-import { BookInfo } from '@components/organisms/BookInfo';
 import { Header } from '@components/organisms/Header';
-import { OurReview } from '@components/organisms/OurReview';
 import { BookDetailPage } from '@components/pages/BookDetailPage';
+import { IBookInfo } from 'interface/bookInfo';
+import { GetServerSideProps } from 'next';
+import { BookService } from 'server/services/book';
 
-export default function BookDetailsPage() {
+type Props = {
+  bookInfo: IBookInfo;
+};
+
+export default function BookDetailsPage(props: Props) {
+  const { bookInfo } = props;
   return (
     <Box>
       <Header />
-      <BookDetailPage />
+      <BookDetailPage {...bookInfo} />
     </Box>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const isbn = Number(context.query.isbn);
+
+  // TODO: クエリパラメータがない、不適切な時の対応
+  const bookInfo = await BookService.getBookInfoByIsbn(isbn);
+
+  return {
+    props: {
+      bookInfo,
+    },
+  };
+};

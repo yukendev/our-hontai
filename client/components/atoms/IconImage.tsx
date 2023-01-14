@@ -1,5 +1,5 @@
 import { Image, Img } from '@chakra-ui/react';
-import DefaultIcon from '../../public/default_icon.png';
+import DefaultIcon from 'public/default_icon.png';
 
 type IconImageProps = {
   size: string;

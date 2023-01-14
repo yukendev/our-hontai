@@ -1,4 +1,4 @@
-import Star from '../../public/star.svg';
+import Star from 'public/star.svg';
 
 type AvarageStar = {
   size: number;

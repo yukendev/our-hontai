@@ -13,5 +13,6 @@ export interface IBookDocument extends IBook, Document {}
 
 // interface for statics
 export interface IBookModel extends Model<IBookDocument> {
+  getByIsbn: (isbn: number) => IBook;
   getNominatedBooksByYear: (year: number) => IBook[]; // その年にノミネートした本を全て取得
 }
