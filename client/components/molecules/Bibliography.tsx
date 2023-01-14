@@ -3,8 +3,10 @@ import { BookAuthor } from '@components/atoms/Bibliography/BookAuthor';
 import { BookOutline } from '@components/atoms/Bibliography/BookOutline';
 import { BookPublisher } from '@components/atoms/Bibliography/BookPublisher';
 import { BookTitle } from '@components/atoms/Bibliography/BookTitle';
+import { ExternalLinkIcon } from '@chakra-ui/icons';
 
 type BibliographyProps = {
+  isbn: number;
   title: string; // 本のタイトル
   author: string; // 作者
   publisher: string; // 出版社
@@ -12,7 +14,7 @@ type BibliographyProps = {
 };
 
 export const Bibliography = (props: BibliographyProps) => {
-  const { title, author, publisher, outline } = props;
+  const { title, author, publisher, outline, isbn } = props;
   return (
     <Box>
       <BookTitle title={title} />
@@ -26,7 +28,10 @@ export const Bibliography = (props: BibliographyProps) => {
         <BookOutline outline={outline} />
       </Box>
       <Box mt='5'>
-        <Link color='blue'>詳細を見る</Link>
+        <Link href={`https://www.hanmoto.com/bd/isbn/${isbn}`} color='blue' isExternal>
+          詳細を見る
+          <ExternalLinkIcon mx='2px' />
+        </Link>
       </Box>
     </Box>
   );
