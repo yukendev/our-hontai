@@ -20,10 +20,7 @@ export const ReviewAndPointService: IReviewAndPointService = {
       reviewer_id: user._id,
       book_id: book._id,
     }).exec();
-    const pointInDb = await PointModel.findOne({
-      evaluator_id: user._id,
-      book_id: book._id,
-    }).exec();
+    const pointInDb = await PointModel.getByUserAndBook(user._id, book._id);
 
     // ポイント、評価は1冊に対して1つまで
     if (reviewInDb !== null || pointInDb !== null) {
@@ -37,8 +34,8 @@ export const ReviewAndPointService: IReviewAndPointService = {
     };
 
     const pointToSave: IPoint = {
-      book_id: book as unknown as Types.ObjectId,
-      evaluator_id: user as unknown as Types.ObjectId,
+      book: book as unknown as Types.ObjectId,
+      evaluator: user as unknown as Types.ObjectId,
       evaluation: point,
     };
 
