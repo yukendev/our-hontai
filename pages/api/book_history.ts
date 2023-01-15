@@ -34,8 +34,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             res.status(400).json({ error: 'invalid request body' });
           } else {
             // 正常なリクエストの場合は、DBを更新
-            await BookHistoryService.postBookHistory(session.user._id, body.bookId);
-            res.status(200);
+            const data = await BookHistoryService.postBookHistory(session.user._id, body.isbn);
+            res.status(200).json(data);
           }
           break;
         default:

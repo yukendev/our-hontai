@@ -29,3 +29,13 @@ export const postBookHistory = async (isbn: number) => {
     throw Error(`${err}`);
   }
 };
+
+export const getBookStatus = async (isbn: number) => {
+  try {
+    const res = await axios.get('/api/book_status', { params: { isbn } });
+    return res;
+  } catch (err) {
+    // TODO: しっかりエラーハンドリング
+    throw Error(`${err}`);
+  }
+};

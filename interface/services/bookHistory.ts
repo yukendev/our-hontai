@@ -1,3 +1,5 @@
+import { IBookHistory } from 'interface/models/bookHistory';
+
 export interface IBookHistoryService {
-  postBookHistory: (userId: string, bookId: string) => Promise<void>;
+  postBookHistory: (userId: string, isbn: number) => Promise<IBookHistory>;
 }

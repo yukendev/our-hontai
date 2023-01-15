@@ -2,29 +2,26 @@ import { Center, Text, useToast } from '@chakra-ui/react';
 import { useState } from 'react';
 import { Spinner } from '@chakra-ui/react';
 import { postBookHistory } from 'client/util/api';
+import { useMyToaster } from 'client/util/toaster';
 
-export const RecordReadingButton = (props: { isbn: number }): JSX.Element => {
-  const { isbn } = props;
+type RecordReadingButtonProps = {
+  isbn: number;
+  afterRequestHandler: () => void;
+};
+
+export const RecordReadingButton = (props: RecordReadingButtonProps): JSX.Element => {
+  const { isbn, afterRequestHandler } = props;
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const toast = useToast();
+  const { showToaster } = useMyToaster();
 
   const registerHandler = async () => {
     try {
       setIsLoading(true);
       await postBookHistory(isbn);
-      toast({
-        title: '読書を記録しました',
-        status: 'success',
-        duration: 3000,
-        isClosable: true,
-      });
+      afterRequestHandler();
+      showToaster('success', '読書を記録しました');
     } catch {
-      toast({
-        title: 'エラーが発生しました',
-        status: 'error',
-        duration: 3000,
-        isClosable: true,
-      });
+      showToaster('error', 'エラーが発生しました');
     }
     setIsLoading(false);
   };
