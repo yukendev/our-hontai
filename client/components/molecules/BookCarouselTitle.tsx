@@ -1,4 +1,5 @@
-import { Flex, Link, Spacer, Text } from '@chakra-ui/react';
+import { Flex, Spacer, Text } from '@chakra-ui/react';
+import Link from 'next/link';
 
 type BookCarouselTitleProps = {
   year: number;
@@ -11,9 +12,7 @@ export const BookCarouselTitle = (props: BookCarouselTitleProps): JSX.Element =>
     <Flex my={3}>
       <Text fontSize='xl' fontWeight='bold'>{`${year}年ノミネート作品`}</Text>
       <Spacer />
-      <Link mt='auto' color='blue.500' href=''>
-        全ての作品を見る
-      </Link>
+      <Link href={`/nominated_books/${year}`}>全ての作品を見る</Link>
     </Flex>
   );
 };
