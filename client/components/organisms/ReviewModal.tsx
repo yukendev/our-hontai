@@ -45,11 +45,13 @@ const ReviewModalBody = (): JSX.Element => {
   );
 };
 
-export const ReviewModal = (): JSX.Element => {
-  const isOpen = true;
-  const onClose = () => {
-    console.log('close modal');
-  };
+type ReviewModalProps = {
+  isOpen: boolean;
+  onClose: () => void;
+};
+
+export const ReviewModal = (props: ReviewModalProps): JSX.Element => {
+  const { isOpen, onClose } = props;
   return (
     <Modal size='3xl' isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
