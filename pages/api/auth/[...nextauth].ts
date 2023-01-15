@@ -2,8 +2,10 @@ import { IUser } from 'interface/models/user';
 import NextAuth from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
 import { UserService } from 'server/services/user';
+import type { NextAuthOptions } from 'next-auth';
 
-export default NextAuth({
+export const authOptions: NextAuthOptions = {
+  secret: process.env.NEXTAUTH_SECRET,
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_ID ?? '',
@@ -45,4 +47,6 @@ export default NextAuth({
       return session;
     },
   },
-});
+};
+
+export default NextAuth(authOptions);

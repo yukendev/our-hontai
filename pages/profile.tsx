@@ -6,6 +6,9 @@ import { withId } from 'interface/withId';
 import { GetServerSideProps } from 'next';
 import { UserService } from 'server/services/user';
 
+import { authOptions } from 'pages/api/auth/[...nextauth]';
+import { unstable_getServerSession } from 'next-auth/next';
+
 type Props = {
   user: IUser & withId;
 };
@@ -21,11 +24,19 @@ export default function ProfilePageWrapper(props: Props) {
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const userId = context.query.userId as string;
-  // クエリパラメーターがundefined, string[]だった場合のエラー処理
+  const session = await unstable_getServerSession(context.req, context.res, authOptions);
 
-  const userInfo = await UserService.getById(userId);
-  const jsonData = JSON.parse(JSON.stringify(userInfo));
+  // ログインしていない場合は、TOPページにリダイレクト
+  if (!session) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: '/',
+      },
+    };
+  }
+
+  const jsonData = JSON.parse(JSON.stringify(session.user));
 
   return {
     props: {
