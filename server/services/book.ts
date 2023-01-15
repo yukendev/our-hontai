@@ -14,25 +14,23 @@ export const BookService: IBookService = {
   },
 
   async getBookInfoByIsbn(isbn: number): Promise<IBookInfo> {
-    return new Promise(async (resolve, reject) => {
-      try {
-        const bookMeta = await OpenBdService.getBookMetaByIsbn(isbn);
+    try {
+      const bookMeta = await OpenBdService.getBookMetaByIsbn(isbn);
 
-        const book = await this.getBookByIsbn(isbn);
+      const book = await this.getBookByIsbn(isbn);
 
-        const { image, year, isGrandPrize } = book;
+      const { image, year, isGrandPrize } = book;
 
-        const result = {
-          isbn,
-          image,
-          year,
-          isGrandPrize,
-          ...bookMeta,
-        };
-        resolve(result);
-      } catch {
-        reject();
-      }
-    });
+      const result = {
+        isbn,
+        image,
+        year,
+        isGrandPrize,
+        ...bookMeta,
+      };
+      return result;
+    } catch {
+      throw Error();
+    }
   },
 };

@@ -15,18 +15,20 @@ export const OpenBdService: IOpenBdService = {
       const res = await axios.get(url);
       const resObj = res.data[0];
 
+      if (!resObj) {
+        throw Error('can not get data from openBD');
+      }
+
       return resObj;
     };
 
-    return new Promise(async (resolve, reject) => {
-      try {
-        const resFromOpenDb = await getFromOpenDB(isbnArg);
-        const bookMeta = extractData(resFromOpenDb);
+    try {
+      const resFromOpenDb = await getFromOpenDB(isbnArg);
+      const bookMeta = extractData(resFromOpenDb);
 
-        resolve(bookMeta);
-      } catch {
-        reject();
-      }
-    });
+      return bookMeta;
+    } catch {
+      throw Error();
+    }
   },
 };

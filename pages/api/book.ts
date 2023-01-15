@@ -13,7 +13,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
         // isbn(クエリパラメーター)が13桁の数字じゃない場合は、エラーを返す
         if (isNaN(isbn) || query.isbn?.length != 13) {
-          res.status(500).json({ statusCode: 400, message: 'invalid query parameter' });
+          res.status(400).json({ statusCode: 400, message: 'invalid query parameter' });
         } else {
           const data = await BookService.getBookInfoByIsbn(isbn);
           res.status(200).json(data);
