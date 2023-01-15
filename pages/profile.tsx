@@ -4,7 +4,6 @@ import { ProfilePage } from '@components/pages/ProfilePage';
 import { IUser } from 'interface/models/user';
 import { withId } from 'interface/withId';
 import { GetServerSideProps } from 'next';
-import { UserService } from 'server/services/user';
 
 import { authOptions } from 'pages/api/auth/[...nextauth]';
 import { unstable_getServerSession } from 'next-auth/next';
