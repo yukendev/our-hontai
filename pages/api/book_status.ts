@@ -22,20 +22,21 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
           if (isNaN(isbn) || query.isbn?.length != 13) {
             res.status(400).json({ statusCode: 400, message: 'invalid query parameter' });
           } else {
-            const book = await BookModel.getByIsbn(isbn);
-            const bookHistory = await BookHistoryModel.findOne({
-              user_id: session.user._id,
-              book_id: book._id,
-            });
-            const bookreview = await ReviewModel.findOne({
-              book_id: book._id,
-              reviewer_id: session.user._id,
-            });
-            const data = {
-              isHistoryExist: bookHistory !== null,
-              isReviewExist: bookreview !== null,
-            };
-            res.status(200).json(data);
+            try {
+              const book = await BookModel.getByIsbn(isbn);
+              const bookHistory = await BookHistoryModel.getByUserAndBook(
+                session.user._id,
+                book._id,
+              );
+              const bookreview = await ReviewModel.getByUserAndBook(session.user._id, book._id);
+              const data = {
+                isHistoryExist: bookHistory !== null,
+                isReviewExist: bookreview !== null,
+              };
+              res.status(200).json(data);
+            } catch (error) {
+              res.status(500).json({ statusCode: 500, message: error });
+            }
           }
         }
         break;

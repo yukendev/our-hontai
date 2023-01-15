@@ -13,18 +13,26 @@ export const ReviewAndPointService: IReviewAndPointService = {
     const book = await BookModel.getByIsbn(isbn);
 
     if (!user) {
-      return;
+      throw Error('require login');
+    }
+
+    const reviewInDb = await ReviewModel.getByUserAndBook(user._id, book._id);
+    const pointInDb = await PointModel.getByUserAndBook(user._id, book._id);
+
+    // ポイント、評価は1冊に対して1つまで
+    if (reviewInDb !== null || pointInDb !== null) {
+      throw Error('already evaluated');
     }
 
     const reviewToSave: IReview = {
-      book_id: book as unknown as Types.ObjectId, // 結構無理やり型を認知させている
-      reviewer_id: user as unknown as Types.ObjectId,
+      book: book as unknown as Types.ObjectId, // 結構無理やり型を認知させている
+      reviewer: user as unknown as Types.ObjectId,
       content: review,
     };
 
     const pointToSave: IPoint = {
-      book_id: book as unknown as Types.ObjectId,
-      evaluator_id: user as unknown as Types.ObjectId,
+      book: book as unknown as Types.ObjectId,
+      evaluator: user as unknown as Types.ObjectId,
       evaluation: point,
     };
 

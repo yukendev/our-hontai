@@ -3,7 +3,6 @@ import { AveragePoints } from '@components/organisms/AveragePoints';
 import { BookInfoButtons } from '@components/organisms/BookDetailButtons';
 import { BookInfo } from '@components/organisms/BookInfo';
 import { OurReview } from '@components/organisms/OurReview';
-import { ReviewModal } from '@components/organisms/ReviewModal';
 import { IBookInfo } from 'interface/bookInfo';
 
 export const BookDetailPage = (props: IBookInfo): JSX.Element => {
@@ -15,9 +14,8 @@ export const BookDetailPage = (props: IBookInfo): JSX.Element => {
         <AveragePoints />
       </Box>
       <Box mt={12}>
-        <OurReview />
+        <OurReview isbn={props.isbn} />
       </Box>
-      {/* <ReviewModal /> */}
     </Box>
   );
 };

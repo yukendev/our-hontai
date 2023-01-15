@@ -14,20 +14,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       res.status(400).json({ error: 'session is required' });
     } else {
       switch (method) {
-        case 'GET':
-          if (!query.isbn) {
-            // リクエストのbodyが適切じゃない
-            res.status(400).json({ error: 'invalid request body' });
-          } else {
-            // 正常なリクエストの場合は、DBの値を返す
-            const book = await BookModel.getByIsbn(Number(query.isbn));
-            const data = await BookHistoryModel.findOne({
-              user_id: session.user._id,
-              book_id: book._id,
-            });
-            res.status(200).json(data);
-          }
-          break;
         case 'POST':
           if (!body.isbn) {
             // リクエストのbodyが適切じゃない
