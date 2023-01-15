@@ -1,4 +1,5 @@
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
+import { IReview } from 'interface/models/review';
 
 // プロフィール画面からユーザーネームを更新
 export const updateUsername = async (username: string) => {
@@ -47,7 +48,7 @@ export const postReview = async (isbn: number, point: number, review: string) =>
 // 本の感想を取得
 export const getReviewBy = async (isbn: number) => {
   try {
-    const res = await axios.get('/api/book_review', { params: { isbn } });
+    const res = await axios.get<IReview[]>('/api/book_review', { params: { isbn } });
     return res;
   } catch (err) {
     // TODO: しっかりエラーハンドリング

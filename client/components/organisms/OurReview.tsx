@@ -1,7 +1,8 @@
-import { Box, Text } from '@chakra-ui/react';
+import { Box, Center, Spinner, Text } from '@chakra-ui/react';
 import { Review } from '@components/molecules/Review';
 import { getReviewBy } from 'client/util/api';
-import { useEffect } from 'react';
+import { IReview } from 'interface/models/review';
+import { useEffect, useState } from 'react';
 
 const dummyReviews = [
   'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
@@ -12,26 +13,33 @@ const dummyReviews = [
 
 export const OurReview = (props: { isbn: number }): JSX.Element => {
   const { isbn } = props;
+  const [reviews, setReviews] = useState<IReview[] | undefined>();
   useEffect(() => {
-    const get = async () => {
+    const getReview = async () => {
       const res = await getReviewBy(isbn);
-
-      console.log('res', res);
+      const reviews = res.data;
+      setReviews(reviews);
     };
-    get();
+    getReview();
   });
   return (
     <Box>
       <Text mb={6} fontWeight='bold'>
         みんなの感想
       </Text>
-      {dummyReviews.map((review, idx) => {
-        return (
-          <Box my={6} key={idx}>
-            <Review content={review} />
-          </Box>
-        );
-      })}
+      {reviews == null ? (
+        <Center mt={16}>
+          <Spinner />
+        </Center>
+      ) : (
+        reviews.map((review, idx) => {
+          return (
+            <Box my={6} key={idx}>
+              <Review review={review} />
+            </Box>
+          );
+        })
+      )}
     </Box>
   );
 };

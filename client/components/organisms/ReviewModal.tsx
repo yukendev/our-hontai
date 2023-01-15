@@ -88,10 +88,14 @@ export const ReviewModal = (props: ReviewModalProps): JSX.Element => {
   const sendReviewHandler = async () => {
     setIsSending(true);
     try {
-      const res = await postReview(isbn, point, review);
-      afterRequestHandler();
-      showToaster('success', '送信しました');
-      onClose();
+      if (review.length > 500) {
+        showToaster('error', '感想は500文字以内にしてください');
+      } else {
+        const res = await postReview(isbn, point, review);
+        afterRequestHandler();
+        showToaster('success', '送信しました');
+        onClose();
+      }
     } catch {
       showToaster('error', '送信に失敗しました');
     }
