@@ -3,19 +3,19 @@ import { unstable_getServerSession } from 'next-auth';
 import { ReviewAndPointService } from 'server/services/reviewAndPoint';
 import { authOptions } from './auth/[...nextauth]';
 
-const isValidBody = (point: string, review: string, bookId: string) => {
+const isValidBody = (point: number, review: string, isbn: number) => {
   // pointに関するバリデーション
-  if (isNaN(Number(point)) || 1 > Number(point) || 5 < Number(point)) {
+  if (isNaN(point) || 1 > point || 5 < point) {
     return false;
   }
 
   // reviewに関するバリデーション
-  if (typeof review !== 'string' || review.length > 300) {
+  if (typeof review !== 'string' || review.length > 500) {
     return false;
   }
 
-  // bookIdに関するバリデーション
-  if (!bookId) {
+  // isbnに関するバリデーション
+  if (isNaN(isbn) || isbn.toString().length != 13) {
     return false;
   }
   return true;
@@ -25,14 +25,14 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const { method, body } = req;
     switch (method) {
-      case 'GET':
+      case 'POST':
         const session = await unstable_getServerSession(req, res, authOptions);
         if (!session) {
           // セッションがない場合はエラー
           res.status(400).json({ error: 'session is required' });
         } else {
-          const { point, review, bookId } = body;
-          if (!isValidBody(point, review, body)) {
+          const { point, review, isbn } = body;
+          if (!isValidBody(point, review, isbn)) {
             // リクエストのbodyが適切じゃない
             res.status(400).json({ error: 'invalid request body' });
           } else {
@@ -41,14 +41,11 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
               Number(point),
               review,
               session.user._id,
-              bookId,
+              isbn,
             );
-            res.status(200);
+            res.status(200).json({});
           }
         }
-        res.status(200);
-        break;
-      case 'POST':
         break;
       default:
         res.status(405).end(`Method ${method} Not Allowed`);

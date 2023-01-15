@@ -8,9 +8,9 @@ import { ReviewModel } from 'server/models/review';
 import { UserModel } from 'server/models/user';
 
 export const ReviewAndPointService: IReviewAndPointService = {
-  async postReviewAndPoint(point: number, review: string, userId: string, bookId: string) {
+  async postReviewAndPoint(point: number, review: string, userId: string, isbn: number) {
     const user = await UserModel.getById(userId);
-    const book = await BookModel.getById(bookId);
+    const book = await BookModel.getByIsbn(isbn);
 
     if (!user) {
       return;

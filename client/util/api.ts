@@ -39,3 +39,14 @@ export const getBookStatus = async (isbn: number) => {
     throw Error(`${err}`);
   }
 };
+
+// point, review, bookId
+export const postReview = async (isbn: number, point: number, review: string) => {
+  try {
+    const res = await axios.post('/api/book_review', { isbn, point, review });
+    return res;
+  } catch (err) {
+    // TODO: しっかりエラーハンドリング
+    throw Error(`${err}`);
+  }
+};

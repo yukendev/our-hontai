@@ -3,6 +3,6 @@ export interface IReviewAndPointService {
     point: number,
     review: string,
     userId: string,
-    bookId: string,
+    isbn: number,
   ) => Promise<void>;
 }
