@@ -16,10 +16,7 @@ export const ReviewAndPointService: IReviewAndPointService = {
       throw Error('require login');
     }
 
-    const reviewInDb = await ReviewModel.findOne({
-      reviewer_id: user._id,
-      book_id: book._id,
-    }).exec();
+    const reviewInDb = await ReviewModel.getByUserAndBook(user._id, book._id);
     const pointInDb = await PointModel.getByUserAndBook(user._id, book._id);
 
     // ポイント、評価は1冊に対して1つまで
@@ -28,8 +25,8 @@ export const ReviewAndPointService: IReviewAndPointService = {
     }
 
     const reviewToSave: IReview = {
-      book_id: book as unknown as Types.ObjectId, // 結構無理やり型を認知させている
-      reviewer_id: user as unknown as Types.ObjectId,
+      book: book as unknown as Types.ObjectId, // 結構無理やり型を認知させている
+      reviewer: user as unknown as Types.ObjectId,
       content: review,
     };
 
