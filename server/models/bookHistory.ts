@@ -8,7 +8,7 @@ const BookHistorySchema = new mongoose.Schema<IBookHistoryDocument>({
 });
 
 BookHistorySchema.statics.getByUserAndBook = async function (userId: string, bookId: string) {
-  return this.find({ user: userId, book: bookId }).exec();
+  return this.findOne({ user: userId, book: bookId }).exec();
 };
 
 export const BookHistoryModel = getOrCreateModel<IBookHistoryDocument, IBookHistoryModel>(
