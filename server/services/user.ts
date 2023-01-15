@@ -13,4 +13,9 @@ export const UserService: IUserService = {
     const user = new UserModel(userObj);
     await user.save();
   },
+  async updateUsername(_id: string, username: string) {
+    const filter = { _id };
+    const update = { username };
+    await UserModel.findOneAndUpdate(filter, update);
+  },
 };

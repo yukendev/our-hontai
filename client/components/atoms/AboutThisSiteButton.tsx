@@ -1,3 +1,5 @@
+import { signOut } from 'next-auth/react';
+
 export const AboutThisSiteButton = (): JSX.Element => {
-  return <button>このサイトについて</button>;
+  return <button onClick={() => signOut()}>このサイトについて</button>;
 };
