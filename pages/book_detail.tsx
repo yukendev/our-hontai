@@ -19,15 +19,24 @@ export default function BookDetailsPage(props: Props) {
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
+export const getServerSideProps: GetServerSideProps<Props> = async (context) => {
   const isbn = Number(context.query.isbn);
 
-  // TODO: クエリパラメータがない、不適切な時の対応
-  const bookInfo = await BookService.getBookInfoByIsbn(isbn);
+  try {
+    const bookInfo = await BookService.getBookInfoByIsbn(isbn);
 
-  return {
-    props: {
-      bookInfo,
-    },
-  };
+    return {
+      props: {
+        bookInfo,
+      },
+    };
+  } catch {
+    // isbnから書籍のデータが取れない場合はリダイレクト
+    return {
+      redirect: {
+        permanent: false,
+        destination: '/',
+      },
+    };
+  }
 };
