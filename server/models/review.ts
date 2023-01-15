@@ -8,4 +8,8 @@ const ReviewSchema = new mongoose.Schema<IReviewDocument>({
   content: { type: String, required: true },
 });
 
+ReviewSchema.statics.getByBookId = async function (bookId: string) {
+  return this.find({ book_id: bookId }).exec();
+};
+
 export const ReviewModel = getOrCreateModel<IReviewDocument, IReviewModel>('Review', ReviewSchema);

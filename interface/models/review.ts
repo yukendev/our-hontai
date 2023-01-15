@@ -1,3 +1,4 @@
+import { withId } from 'interface/withId';
 import { Model, Types } from 'mongoose';
 
 // interface for property
@@ -11,4 +12,6 @@ export interface IReview {
 export interface IReviewDocument extends IReview, Document {}
 
 // interface for statics
-export interface IReviewModel extends Model<IReviewDocument> {}
+export interface IReviewModel extends Model<IReviewDocument> {
+  getByBookId: (bookId: string) => Promise<(IReview & withId)[]>;
+}

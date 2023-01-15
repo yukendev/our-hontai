@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { unstable_getServerSession } from 'next-auth';
+import { ReviewService } from 'server/services/review';
 import { ReviewAndPointService } from 'server/services/reviewAndPoint';
 import { authOptions } from './auth/[...nextauth]';
 
@@ -23,7 +24,7 @@ const isValidBody = (point: number, review: string, isbn: number) => {
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
-    const { method, body } = req;
+    const { method, body, query } = req;
     switch (method) {
       case 'POST':
         const session = await unstable_getServerSession(req, res, authOptions);
@@ -37,13 +38,32 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             res.status(400).json({ error: 'invalid request body' });
           } else {
             // 正常なリクエストの場合は、DBを更新
-            await ReviewAndPointService.postReviewAndPoint(
-              Number(point),
-              review,
-              session.user._id,
-              isbn,
-            );
-            res.status(200).json({});
+            try {
+              await ReviewAndPointService.postReviewAndPoint(
+                Number(point),
+                review,
+                session.user._id,
+                isbn,
+              );
+              res.status(200).json({});
+            } catch {
+              res.status(500).json({ error: 'can not post review' });
+            }
+          }
+        }
+        break;
+      case 'GET':
+        const isbn = Number(query.isbn);
+        // isbn(クエリパラメーター)が13桁の数字じゃない場合は、エラーを返す
+        if (isNaN(isbn) || query.isbn?.length != 13) {
+          res.status(400).json({ statusCode: 400, message: 'invalid query parameter' });
+        } else {
+          try {
+            const data = await ReviewService.getReviewByIsbn(isbn);
+            console.log('data', data);
+            res.status(200).json(data);
+          } catch {
+            res.status(500).json({ error: 'can not get review' });
           }
         }
         break;
