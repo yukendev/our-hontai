@@ -1,6 +1,7 @@
-import { Box, Text } from '@chakra-ui/react';
+import { Box, Button, Flex, Text } from '@chakra-ui/react';
 import { Profile } from '@components/organisms/Profile';
 import { IUser } from 'interface/models/user';
+import { signOut } from 'next-auth/react';
 
 export const ProfilePage = (props: IUser): JSX.Element => {
   return (
@@ -11,6 +12,9 @@ export const ProfilePage = (props: IUser): JSX.Element => {
       <Box mt={8}>
         <Profile {...props} />
       </Box>
+      <Flex mt='16' justifyContent='center'>
+        <Button onClick={() => signOut()}>ログアウト</Button>
+      </Flex>
     </Box>
   );
 };
