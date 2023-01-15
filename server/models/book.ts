@@ -9,6 +9,10 @@ const BookSchema = new mongoose.Schema<IBookDocument>({
   isGrandPrize: { type: Boolean, required: true },
 });
 
+BookSchema.statics.getById = async function (id: number) {
+  return this.findById(id).exec();
+};
+
 BookSchema.statics.getByIsbn = async function (isbn: number) {
   return this.findOne({ isbn }).exec();
 };

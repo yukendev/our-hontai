@@ -1,5 +1,4 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { connectDB } from 'server/middlewares/mongoose';
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
