@@ -1,8 +1,18 @@
 import { LoginButton } from '@components/atoms/LoginButton';
 import { AboutThisSiteButton } from '@components/atoms/AboutThisSiteButton';
-import { Box, Flex } from '@chakra-ui/react';
+import { Flex } from '@chakra-ui/react';
 import { useUserInfo } from 'client/hooks/useUserInfo';
 import { IconImage } from '@components/atoms/IconImage';
+import Link from 'next/link';
+
+const HeaderImageIcon = (props: { src: string }): JSX.Element => {
+  const { src } = props;
+  return (
+    <Link href={'/profile'}>
+      <IconImage size='32px' src={src} />
+    </Link>
+  );
+};
 
 export const HeaderRightComponents = () => {
   const { isLogedIn, user } = useUserInfo();
@@ -11,7 +21,7 @@ export const HeaderRightComponents = () => {
       <Flex mr={5} flexDirection='column' justifyContent='center'>
         <AboutThisSiteButton />
       </Flex>
-      {isLogedIn ? <IconImage size='32px' src={user?.image} /> : <LoginButton />}
+      {isLogedIn ? <HeaderImageIcon src={user?.image ?? ''} /> : <LoginButton />}
     </Flex>
   );
 };

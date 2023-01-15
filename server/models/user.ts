@@ -7,7 +7,7 @@ export type UserStatus = 'active';
 
 const UserSchema = new mongoose.Schema<IUserDocument>({
   email: { type: String, required: true },
-  username: { type: String, required: true },
+  username: { type: String, required: true, maxlength: 30 },
   status: { type: String, required: true },
   image: { type: String, required: true },
 });
