@@ -1,5 +1,7 @@
 import { Box, Text } from '@chakra-ui/react';
 import { Review } from '@components/molecules/Review';
+import { getReviewBy } from 'client/util/api';
+import { useEffect } from 'react';
 
 const dummyReviews = [
   'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
@@ -8,7 +10,16 @@ const dummyReviews = [
   '最後のどんでん返しで思わず声が出てしまった。すごい作品',
 ];
 
-export const OurReview = (): JSX.Element => {
+export const OurReview = (props: { isbn: number }): JSX.Element => {
+  const { isbn } = props;
+  useEffect(() => {
+    const get = async () => {
+      const res = await getReviewBy(isbn);
+
+      console.log('res', res);
+    };
+    get();
+  });
   return (
     <Box>
       <Text mb={6} fontWeight='bold'>

@@ -60,7 +60,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         } else {
           try {
             const data = await ReviewService.getReviewByIsbn(isbn);
-            console.log('data', data);
             res.status(200).json(data);
           } catch {
             res.status(500).json({ error: 'can not get review' });
