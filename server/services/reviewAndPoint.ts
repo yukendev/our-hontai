@@ -13,7 +13,21 @@ export const ReviewAndPointService: IReviewAndPointService = {
     const book = await BookModel.getByIsbn(isbn);
 
     if (!user) {
-      return;
+      throw Error('require login');
+    }
+
+    const reviewInDb = await ReviewModel.findOne({
+      reviewer_id: user._id,
+      book_id: book._id,
+    }).exec();
+    const pointInDb = await PointModel.findOne({
+      evaluator_id: user._id,
+      book_id: book._id,
+    }).exec();
+
+    // ポイント、評価は1冊に対して1つまで
+    if (reviewInDb !== null || pointInDb !== null) {
+      throw Error('already evaluated');
     }
 
     const reviewToSave: IReview = {
