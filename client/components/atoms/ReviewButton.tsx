@@ -1,7 +1,13 @@
 import { Box, Center, Text, useDisclosure } from '@chakra-ui/react';
 import { ReviewModal } from '@components/organisms/ReviewModal';
 
-export const ReviewButton = (): JSX.Element => {
+type ReviewButtonProps = {
+  isbn: number;
+  afterRequestHandler: () => void;
+};
+
+export const ReviewButton = (props: ReviewButtonProps): JSX.Element => {
+  const { isbn, afterRequestHandler } = props;
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <Box>
@@ -18,7 +24,12 @@ export const ReviewButton = (): JSX.Element => {
           この本の評価・感想を書く
         </Text>
       </Center>
-      <ReviewModal isOpen={isOpen} onClose={onClose} />
+      <ReviewModal
+        isbn={isbn}
+        isOpen={isOpen}
+        onClose={onClose}
+        afterRequestHandler={afterRequestHandler}
+      />
     </Box>
   );
 };
