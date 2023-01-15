@@ -1,3 +1,4 @@
+import { withId } from 'interface/withId';
 import { Model, Document } from 'mongoose';
 
 // interface for property
@@ -14,6 +15,6 @@ export interface IBookDocument extends IBook, Document {}
 // interface for statics
 export interface IBookModel extends Model<IBookDocument> {
   getById: (id: string) => Promise<IBook>;
-  getByIsbn: (isbn: number) => IBook;
-  getNominatedBooksByYear: (year: number) => IBook[]; // その年にノミネートした本を全て取得
+  getByIsbn: (isbn: number) => Promise<IBook & withId>;
+  getNominatedBooksByYear: (year: number) => Promise<IBook[]>; // その年にノミネートした本を全て取得
 }

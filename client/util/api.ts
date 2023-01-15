@@ -9,3 +9,23 @@ export const updateUsername = async (username: string) => {
     throw Error(`${err}`);
   }
 };
+
+export const getBookHistory = async (isbn: number) => {
+  try {
+    const res = await axios.get('/api/book_history', { params: { isbn } });
+    return res;
+  } catch (err) {
+    // TODO: しっかりエラーハンドリング
+    throw Error(`${err}`);
+  }
+};
+
+export const postBookHistory = async (isbn: number) => {
+  try {
+    const res = await axios.post('/api/book_history', { isbn });
+    return res;
+  } catch (err) {
+    // TODO: しっかりエラーハンドリング
+    throw Error(`${err}`);
+  }
+};
