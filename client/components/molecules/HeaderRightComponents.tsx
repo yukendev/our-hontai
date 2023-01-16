@@ -21,7 +21,15 @@ export const HeaderRightComponents = () => {
       <Flex mr={5} flexDirection='column' justifyContent='center'>
         <AboutThisSiteButton />
       </Flex>
-      {isLogedIn ? <HeaderImageIcon src={user?.image ?? ''} /> : <LoginButton />}
+      {isLogedIn ? (
+        <Flex mr={5} flexDirection='column' justifyContent='center'>
+          <HeaderImageIcon src={user?.image ?? ''} />
+        </Flex>
+      ) : (
+        <Flex mr={5} flexDirection='column' justifyContent='center'>
+          <LoginButton />
+        </Flex>
+      )}
     </Flex>
   );
 };
