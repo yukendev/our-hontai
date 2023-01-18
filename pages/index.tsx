@@ -1,5 +1,6 @@
 import { BookCarousel } from '@components/organisms/BookCarousel';
 import { Header } from '@components/organisms/Header';
+import { TopPageImage } from '@components/organisms/TopPageImage';
 import { IBook } from 'interface/models/book';
 import { GetStaticProps } from 'next';
 import 'react-multi-carousel/lib/styles.css';
@@ -13,6 +14,7 @@ export default function Home(props: Props) {
   return (
     <>
       <Header />
+      <TopPageImage />
       {years.map((year) => {
         const nominatedBooks = books[year];
         return <BookCarousel key={year} year={Number(year)} books={nominatedBooks} />;
