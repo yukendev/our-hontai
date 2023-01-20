@@ -3,6 +3,7 @@ import { BookCarousel } from '@components/organisms/BookCarousel';
 import { Footer } from '@components/organisms/Footer';
 import { Header } from '@components/organisms/Header';
 import { TopPageImage } from '@components/organisms/TopPageImage';
+import { YearLinkWrapper } from '@components/organisms/YearLinkWrapper';
 import { IBook } from 'interface/models/book';
 import { GetStaticProps } from 'next';
 import 'react-multi-carousel/lib/styles.css';
@@ -22,6 +23,9 @@ export default function Home(props: Props) {
           const nominatedBooks = books[year];
           return <BookCarousel key={year} year={Number(year)} books={nominatedBooks} />;
         })}
+      </Box>
+      <Box mb={16} mx='auto' maxWidth={800}>
+        <YearLinkWrapper />
       </Box>
       <Footer />
     </Flex>
