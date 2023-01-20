@@ -4,6 +4,7 @@ import { Flex } from '@chakra-ui/react';
 import { useUserInfo } from 'client/hooks/useUserInfo';
 import { IconImage } from '@components/atoms/IconImage';
 import Link from 'next/link';
+import { ContactButton } from '@components/atoms/ContactButton';
 
 const HeaderImageIcon = (props: { src: string }): JSX.Element => {
   const { src } = props;
@@ -19,7 +20,8 @@ export const HeaderRightComponents = () => {
   return (
     <Flex my={3} mr={3}>
       <Flex mr={5} flexDirection='column' justifyContent='center'>
-        <AboutThisSiteButton />
+        {/* <AboutThisSiteButton /> */}
+        <ContactButton />
       </Flex>
       {isLogedIn ? (
         <Flex mr={5} flexDirection='column' justifyContent='center'>
