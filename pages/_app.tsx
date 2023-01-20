@@ -2,6 +2,7 @@ import { ChakraProvider, extendTheme } from '@chakra-ui/react';
 import type { AppProps } from 'next/app';
 import { SessionProvider } from 'next-auth/react';
 import { colors } from 'client/styles/colors';
+import '../client/styles/global.scss';
 
 const theme = extendTheme({
   styles: {
