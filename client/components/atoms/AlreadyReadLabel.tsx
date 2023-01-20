@@ -1,4 +1,5 @@
 import { Center, Text } from '@chakra-ui/react';
+import { colors } from 'client/styles/colors';
 
 export const AlreadyReadButton = (): JSX.Element => {
   return (
@@ -8,7 +9,7 @@ export const AlreadyReadButton = (): JSX.Element => {
       color='white'
       mx={{ base: '24px', md: 'auto' }}
       maxWidth={600}
-      bg='myTheme.green'
+      bg={colors.green}
     >
       <Text fontSize='lg' fontWeight='bold'>
         あなたはこの本を読んでいます

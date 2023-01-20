@@ -1,0 +1,16 @@
+.wrapper {
+  position: relative;
+}
+
+.bgImageCaontainer {
+  height: auto;
+  width: 100%;
+  aspect-ratio: 3 / 1;
+}
+
+.titleImageContainer {
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
