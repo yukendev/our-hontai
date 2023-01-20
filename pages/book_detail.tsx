@@ -1,4 +1,5 @@
-import { Box } from '@chakra-ui/react';
+import { Box, Flex } from '@chakra-ui/react';
+import { Footer } from '@components/organisms/Footer';
 import { Header } from '@components/organisms/Header';
 import { BookDetailPage } from '@components/pages/BookDetailPage';
 import { IBookInfo } from 'interface/bookInfo';
@@ -12,10 +13,13 @@ type Props = {
 export default function BookDetailsPage(props: Props) {
   const { bookInfo } = props;
   return (
-    <Box>
+    <Flex flexDirection='column'>
       <Header />
-      <BookDetailPage {...bookInfo} />
-    </Box>
+      <Box flex={1}>
+        <BookDetailPage {...bookInfo} />
+      </Box>
+      <Footer />
+    </Flex>
   );
 }
 

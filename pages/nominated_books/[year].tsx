@@ -1,4 +1,6 @@
+import { Box, Flex } from '@chakra-ui/react';
 import { BookList } from '@components/organisms/BookList';
+import { Footer } from '@components/organisms/Footer';
 import { Header } from '@components/organisms/Header';
 import { IBook } from 'interface/models/book';
 import { GetStaticPaths, GetStaticProps } from 'next';
@@ -12,10 +14,13 @@ type PageProps = {
 export default function NominatedBooksPage(props: PageProps) {
   const { year, books } = props;
   return (
-    <>
+    <Flex flexDirection='column'>
       <Header />
-      <BookList year={year} books={books} />
-    </>
+      <Box my={16} flex={1}>
+        <BookList year={year} books={books} />
+      </Box>
+      <Footer />
+    </Flex>
   );
 }
 

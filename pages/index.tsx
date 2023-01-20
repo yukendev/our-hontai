@@ -1,4 +1,6 @@
+import { Box, Flex } from '@chakra-ui/react';
 import { BookCarousel } from '@components/organisms/BookCarousel';
+import { Footer } from '@components/organisms/Footer';
 import { Header } from '@components/organisms/Header';
 import { TopPageImage } from '@components/organisms/TopPageImage';
 import { IBook } from 'interface/models/book';
@@ -12,14 +14,17 @@ export default function Home(props: Props) {
   const { books } = props;
   const years = Object.keys(books);
   return (
-    <>
+    <Flex flexDirection='column'>
       <Header />
       <TopPageImage />
-      {years.map((year) => {
-        const nominatedBooks = books[year];
-        return <BookCarousel key={year} year={Number(year)} books={nominatedBooks} />;
-      })}
-    </>
+      <Box flex={1} my={16}>
+        {years.map((year) => {
+          const nominatedBooks = books[year];
+          return <BookCarousel key={year} year={Number(year)} books={nominatedBooks} />;
+        })}
+      </Box>
+      <Footer />
+    </Flex>
   );
 }
 
