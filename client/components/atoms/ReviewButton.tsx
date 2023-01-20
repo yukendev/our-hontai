@@ -1,5 +1,6 @@
 import { Box, Center, Text, useDisclosure } from '@chakra-ui/react';
 import { ReviewModal } from '@components/organisms/ReviewModal';
+import { colors } from 'client/styles/colors';
 
 type ReviewButtonProps = {
   isbn: number;
@@ -17,7 +18,7 @@ export const ReviewButton = (props: ReviewButtonProps): JSX.Element => {
         color='white'
         mx={{ base: '24px', md: 'auto' }}
         maxWidth={600}
-        bg='myTheme.darkOrange'
+        bg={colors.darkOrange}
         onClick={() => onOpen()}
       >
         <Text fontSize='lg' fontWeight='bold'>

@@ -4,7 +4,7 @@ import { HeaderRightComponents } from '@components/molecules/HeaderRightComponen
 
 export const Header = () => {
   return (
-    <Flex bg='myTheme.paleOrange'>
+    <Flex bg='white'>
       <HeaderLogoImage />
       <Spacer />
       <HeaderRightComponents />

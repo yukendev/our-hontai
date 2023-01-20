@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { Spinner } from '@chakra-ui/react';
 import { postBookHistory } from 'client/util/api';
 import { useMyToaster } from 'client/util/toaster';
+import { colors } from 'client/styles/colors';
 
 type RecordReadingButtonProps = {
   isbn: number;
@@ -34,7 +35,7 @@ export const RecordReadingButton = (props: RecordReadingButtonProps): JSX.Elemen
       color='white'
       mx={{ base: '24px', md: 'auto' }}
       maxWidth={600}
-      bg='myTheme.green'
+      bg={colors.green}
     >
       {isLoading ? (
         <Spinner />
