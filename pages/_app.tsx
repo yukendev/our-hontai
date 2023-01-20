@@ -1,14 +1,15 @@
 import { ChakraProvider, extendTheme } from '@chakra-ui/react';
 import type { AppProps } from 'next/app';
 import { SessionProvider } from 'next-auth/react';
+import { colors } from 'client/styles/colors';
 
-const myTheme = extendTheme({
-  colors: {
-    myTheme: {
-      darkOrange: '#FF7B54',
-      paleOrange: '#FFB26B',
-      yellow: '#FFD56F',
-      green: '#939B62',
+const theme = extendTheme({
+  styles: {
+    global: {
+      body: {
+        backgroundColor: colors.paleOrange,
+        color: colors.paleBlack,
+      },
     },
   },
 });
@@ -16,7 +17,7 @@ const myTheme = extendTheme({
 export default function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   return (
     <SessionProvider session={session}>
-      <ChakraProvider theme={myTheme}>
+      <ChakraProvider theme={theme}>
         <Component {...pageProps} />
       </ChakraProvider>
     </SessionProvider>

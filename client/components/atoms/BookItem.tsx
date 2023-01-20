@@ -11,7 +11,7 @@ export const BookItem = (props: { book: IBook }): JSX.Element => {
         justifyContent='center'
         alignItems='center'
         rounded='md'
-        bg='gray.200'
+        bg='gray.50'
         height={230}
         width={160}
         boxShadow='lg'

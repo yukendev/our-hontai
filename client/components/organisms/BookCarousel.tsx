@@ -4,19 +4,7 @@ import { BookCarouselTitle } from '@components/molecules/BookCarouselTitle';
 import { IBook } from 'interface/models/book';
 import Carousel from 'react-multi-carousel';
 
-// 開発用のダミーデータ
-const dummyBookImgSrc = [
-  'https://www.hanmoto.com/bd/img/9784103330639_600.jpg',
-  'https://www.hanmoto.com/bd/img/9784065222690_600.jpg',
-  'https://www.hanmoto.com/bd/img/9784041113936_600.jpg',
-  'https://www.hanmoto.com/bd/img/9784575244649_600.jpg',
-  'https://www.hanmoto.com/bd/img/9784408537870_600.jpg',
-  'https://www.hanmoto.com/bd/img/9784120054730_600.jpg',
-  'https://www.hanmoto.com/bd/img/9784569850641_600.jpg',
-  'https://www.hanmoto.com/bd/img/9784152100641_600.jpg',
-  'https://www.hanmoto.com/bd/img/9784103070436_600.jpg',
-  'https://www.hanmoto.com/bd/img/9784041098790_600.jpg',
-];
+import styles from './BookCarousel.module.scss';
 
 const responsive = {
   desktop: {
@@ -45,7 +33,12 @@ export const BookCarousel = (props: BookCarouselProps): JSX.Element => {
     <>
       <Box mt='50px' mx='auto' maxWidth={800}>
         <BookCarouselTitle year={year} />
-        <Carousel infinite={true} ssr={true} responsive={responsive}>
+        <Carousel
+          containerClass={styles.bookCarousel}
+          infinite={true}
+          ssr={true}
+          responsive={responsive}
+        >
           {books.map((book, idx) => {
             return <BookItem key={idx} book={book} />;
           })}
