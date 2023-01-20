@@ -32,7 +32,9 @@ export const BookCarousel = (props: BookCarouselProps): JSX.Element => {
   return (
     <>
       <Box mt='50px' mx='auto' maxWidth={800}>
-        <BookCarouselTitle year={year} />
+        <Box mx={4}>
+          <BookCarouselTitle year={year} />
+        </Box>
         <Carousel
           containerClass={styles.bookCarousel}
           infinite={true}
