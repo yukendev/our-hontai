@@ -1,4 +1,4 @@
-import { Box } from '@chakra-ui/react';
+import { Box, Flex } from '@chakra-ui/react';
 import { Header } from '@components/organisms/Header';
 import { ProfilePage } from '@components/pages/ProfilePage';
 import { IUser } from 'interface/models/user';
@@ -7,6 +7,7 @@ import { GetServerSideProps } from 'next';
 
 import { authOptions } from 'pages/api/auth/[...nextauth]';
 import { unstable_getServerSession } from 'next-auth/next';
+import { Footer } from '@components/organisms/Footer';
 
 type Props = {
   user: IUser & withId;
@@ -15,10 +16,13 @@ type Props = {
 export default function ProfilePageWrapper(props: Props) {
   const { user } = props;
   return (
-    <Box>
+    <Flex flexDirection='column'>
       <Header />
-      <ProfilePage {...user} />
-    </Box>
+      <Box flex={1}>
+        <ProfilePage {...user} />
+      </Box>
+      <Footer />
+    </Flex>
   );
 }
 
