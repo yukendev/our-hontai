@@ -46,9 +46,9 @@ export const postReview = async (isbn: number, point: number, review: string) =>
 };
 
 // 本の感想を取得
-export const getReviewBy = async (isbn: number) => {
+export const getReviewBy = async (isbn: number, page: number) => {
   try {
-    const res = await axios.get<IReview[]>('/api/book_review', { params: { isbn } });
+    const res = await axios.get<IReview[]>('/api/book_review', { params: { isbn, page } });
     return res;
   } catch (err) {
     // TODO: しっかりエラーハンドリング
