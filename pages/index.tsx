@@ -18,13 +18,13 @@ export default function Home(props: Props) {
     <Flex flexDirection='column'>
       <Header />
       <TopPageImage />
-      <Box flex={1} my={16}>
+      <Box flex={1} my={{ base: 8, md: 16 }}>
         {years.map((year) => {
           const nominatedBooks = books[year];
           return <BookCarousel key={year} year={Number(year)} books={nominatedBooks} />;
         })}
       </Box>
-      <Box mb={16} mx='auto' maxWidth={800}>
+      <Box mb={16} mx='auto'>
         <YearLinkWrapper />
       </Box>
       <Footer />
@@ -34,7 +34,7 @@ export default function Home(props: Props) {
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
   // TOPページで掲載する年
-  const years = ['2020', '2021', '2022'];
+  const years = ['2022', '2021', '2020'];
 
   let books = {};
 
