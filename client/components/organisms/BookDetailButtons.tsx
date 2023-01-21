@@ -7,32 +7,16 @@ import { getBookStatus } from 'client/util/api';
 import { IBookInfo } from 'interface/bookInfo';
 import { useCallback, useEffect, useState } from 'react';
 
-const useBookStatus = (isbn: number) => {
-  const [isHistoryExist, setIsHistoryExist] = useState<boolean | undefined>();
-  const [isReviewExist, setIsReviewExist] = useState<boolean | undefined>();
-
-  const resetBookStatus = useCallback(async () => {
-    setIsHistoryExist(undefined);
-    setIsReviewExist(undefined);
-    const bookStatus = await getBookStatus(isbn);
-    setIsHistoryExist(bookStatus.data.isHistoryExist);
-    setIsReviewExist(bookStatus.data.isReviewExist);
-  }, [isbn]);
-
-  useEffect(() => {
-    resetBookStatus();
-  }, [resetBookStatus]);
-
-  return {
-    isReviewExist,
-    isHistoryExist,
-    resetBookStatus,
-  };
+type BookInfoButtonsProps = {
+  isbn: number;
+  isHistoryExist: boolean | undefined;
+  isReviewExist: boolean | undefined;
+  resetBookStatus: () => void;
 };
 
-export const BookInfoButtons = (props: IBookInfo): JSX.Element => {
+export const BookInfoButtons = (props: BookInfoButtonsProps): JSX.Element => {
+  const { isbn, isHistoryExist, isReviewExist, resetBookStatus } = props;
   const { isLogedIn } = useUserInfo();
-  const { isHistoryExist, isReviewExist, resetBookStatus } = useBookStatus(props.isbn);
 
   const afterRequestHandler = useCallback(() => {
     resetBookStatus();
