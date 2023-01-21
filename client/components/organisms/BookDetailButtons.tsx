@@ -11,16 +11,12 @@ type BookInfoButtonsProps = {
   isbn: number;
   isHistoryExist: boolean | undefined;
   isReviewExist: boolean | undefined;
-  resetBookStatus: () => void;
+  afterRequestHandler: () => void;
 };
 
 export const BookInfoButtons = (props: BookInfoButtonsProps): JSX.Element => {
-  const { isbn, isHistoryExist, isReviewExist, resetBookStatus } = props;
+  const { isbn, isHistoryExist, isReviewExist, afterRequestHandler } = props;
   const { isLogedIn } = useUserInfo();
-
-  const afterRequestHandler = useCallback(() => {
-    resetBookStatus();
-  }, [resetBookStatus]);
 
   useEffect(() => {});
   if (!isLogedIn || isHistoryExist == null || isReviewExist == null) {
@@ -35,19 +31,19 @@ export const BookInfoButtons = (props: BookInfoButtonsProps): JSX.Element => {
     <Box>
       {isHistoryExist && (
         <Box my={8}>
-          <AlreadyReadButton isbn={props.isbn} afterRequestHandler={afterRequestHandler} />
+          <AlreadyReadButton isbn={isbn} afterRequestHandler={afterRequestHandler} />
         </Box>
       )}
 
       {isHistoryExist && !isReviewExist && (
         <Box my={8}>
-          <ReviewButton isbn={props.isbn} afterRequestHandler={afterRequestHandler} />
+          <ReviewButton isbn={isbn} afterRequestHandler={afterRequestHandler} />
         </Box>
       )}
 
       {!isHistoryExist && (
         <Box my={8}>
-          <RecordReadingButton isbn={props.isbn} afterRequestHandler={afterRequestHandler} />
+          <RecordReadingButton isbn={isbn} afterRequestHandler={afterRequestHandler} />
         </Box>
       )}
     </Box>

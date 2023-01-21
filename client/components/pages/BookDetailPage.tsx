@@ -3,8 +3,10 @@ import { AveragePoints } from '@components/organisms/AveragePoints';
 import { BookInfoButtons } from '@components/organisms/BookDetailButtons';
 import { BookInfo } from '@components/organisms/BookInfo';
 import { OurReview } from '@components/organisms/OurReview';
-import { getBookStatus } from 'client/util/api';
+import { deleteReview, getBookStatus, getReviewByPage } from 'client/util/api';
+import { useMyToaster } from 'client/util/toaster';
 import { IBookInfo } from 'interface/bookInfo';
+import { IReview } from 'interface/models/review';
 import { useCallback, useEffect, useState } from 'react';
 
 const useBookStatus = (isbn: number) => {
@@ -31,7 +33,43 @@ const useBookStatus = (isbn: number) => {
 };
 
 export const BookDetailPage = (props: IBookInfo): JSX.Element => {
-  const { isHistoryExist, isReviewExist, resetBookStatus } = useBookStatus(props.isbn);
+  const { isbn } = props;
+  const { isHistoryExist, isReviewExist, resetBookStatus } = useBookStatus(isbn);
+
+  const [reviews, setReviews] = useState<IReview[] | undefined>();
+  const [hasMore, setHasMore] = useState(true); //再読み込み判定
+
+  const loadReviews = useCallback(
+    async (page: number) => {
+      const res = await getReviewByPage(isbn, page);
+      const fetchedReviews = res.data;
+      if (page === 1 && fetchedReviews.length < 1) {
+        // まだ感想がない
+        setReviews([]);
+      }
+      if (fetchedReviews.length < 1) {
+        setHasMore(false);
+        return;
+      }
+      setReviews([...(reviews ?? []), ...fetchedReviews]);
+    },
+    [isbn, reviews],
+  );
+
+  const deleteReviewHandler = useCallback(async () => {
+    try {
+      await deleteReview(isbn);
+      loadReviews(1);
+      resetBookStatus();
+    } catch {
+      throw Error();
+    }
+  }, [isbn, loadReviews, resetBookStatus]);
+
+  const afterRequestHandler = useCallback(() => {
+    resetBookStatus();
+    loadReviews(1);
+  }, [loadReviews, resetBookStatus]);
 
   return (
     <Box my={{ base: '16px', md: '24px' }} maxWidth={800} mx={{ base: '24px', md: 'auto' }}>
@@ -40,13 +78,18 @@ export const BookDetailPage = (props: IBookInfo): JSX.Element => {
         isbn={props.isbn}
         isHistoryExist={isHistoryExist}
         isReviewExist={isReviewExist}
-        resetBookStatus={resetBookStatus}
+        afterRequestHandler={afterRequestHandler}
       />
       {/* <Box mt={12}>
         <AveragePoints />
       </Box> */}
       <Box mt={12}>
-        <OurReview isbn={props.isbn} />
+        <OurReview
+          loadFunc={loadReviews}
+          hasMore={hasMore}
+          reviews={reviews}
+          deleteReviewHandler={deleteReviewHandler}
+        />
       </Box>
     </Box>
   );
