@@ -10,6 +10,7 @@ import {
   Text,
   Button,
   useDisclosure,
+  Box,
 } from '@chakra-ui/react';
 import { useRef } from 'react';
 import { deleteBookHistory } from 'client/util/api';
@@ -25,26 +26,28 @@ type AlertProps = {
 const Alert = (props: AlertProps): JSX.Element => {
   const { cancelRef, isOpen, deleteHandler, onClose } = props;
   return (
-    <AlertDialog isOpen={isOpen} leastDestructiveRef={cancelRef} onClose={onClose}>
-      <AlertDialogOverlay>
-        <AlertDialogContent>
-          <AlertDialogHeader fontSize='lg' fontWeight='bold'>
-            この本の記録を削除しますか？
-          </AlertDialogHeader>
+    <Box mx={4} w='80%'>
+      <AlertDialog isOpen={isOpen} leastDestructiveRef={cancelRef} onClose={onClose}>
+        <AlertDialogOverlay>
+          <AlertDialogContent w='90%'>
+            <AlertDialogHeader fontSize='lg' fontWeight='bold'>
+              この本の記録を削除しますか？
+            </AlertDialogHeader>
 
-          <AlertDialogBody>記録を削除すると、評価も同時に削除されます。</AlertDialogBody>
+            <AlertDialogBody>記録を削除すると、評価も同時に削除されます。</AlertDialogBody>
 
-          <AlertDialogFooter>
-            <Button ref={cancelRef} onClick={onClose}>
-              キャンセル
-            </Button>
-            <Button colorScheme='red' onClick={deleteHandler} ml={3}>
-              削除
-            </Button>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialogOverlay>
-    </AlertDialog>
+            <AlertDialogFooter>
+              <Button ref={cancelRef} onClick={onClose}>
+                キャンセル
+              </Button>
+              <Button colorScheme='red' onClick={deleteHandler} ml={3}>
+                削除
+              </Button>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialogOverlay>
+      </AlertDialog>
+    </Box>
   );
 };
 
