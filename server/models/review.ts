@@ -17,16 +17,6 @@ ReviewSchema.statics.getByUserAndBook = async function (userId: string, bookId: 
   return this.findOne({ book: bookId, reviewer: userId }).exec();
 };
 
-ReviewSchema.statics.getByBookId = async function (bookId: string, page: number) {
-  const reviewsPerPage = 5; // 1ページに取得するreviewの数
-
-  return this.find({ book: bookId })
-    .skip((page - 1) * reviewsPerPage)
-    .limit(reviewsPerPage)
-    .populate('reviewer')
-    .exec();
-};
-
 ReviewSchema.statics.getPublishedReviewByBookId = async function (bookId: string, page: number) {
   const reviewsPerPage = 5; // 1ページに取得するreviewの数
 

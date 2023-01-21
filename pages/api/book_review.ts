@@ -1,7 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { unstable_getServerSession } from 'next-auth';
 import { ReviewService } from 'server/services/review';
-import { ReviewAndPointService } from 'server/services/reviewAndPoint';
 import { authOptions } from './auth/[...nextauth]';
 
 const isValidBody = (point: number, review: string, isbn: number, isPublished: boolean) => {
@@ -44,7 +43,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
           } else {
             // 正常なリクエストの場合は、DBを更新
             try {
-              await ReviewAndPointService.postReviewAndPoint(
+              await ReviewService.postReview(
                 Number(point),
                 review,
                 session.user._id,
@@ -67,7 +66,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
           res.status(400).json({ statusCode: 400, message: 'invalid query parameter' });
         } else {
           try {
-            const data = await ReviewService.getReviewByIsbn(isbn, page);
+            const data = await ReviewService.getPublishedReviewByIsbn(isbn, page);
             res.status(200).json(data);
           } catch {
             res.status(500).json({ error: 'can not get review' });
