@@ -15,8 +15,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         const session = await unstable_getServerSession(req, res, authOptions);
         const isbn = Number(query.isbn);
         if (!session) {
-          // セッションがない場合はエラー
-          res.status(400).json({ error: 'session is required' });
+          // セッションがない場合
+          res.status(200).json({});
         } else {
           // isbn(クエリパラメーター)が13桁の数字じゃない場合は、エラーを返す
           if (isNaN(isbn) || query.isbn?.length != 13) {

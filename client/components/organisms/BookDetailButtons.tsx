@@ -18,8 +18,15 @@ export const BookInfoButtons = (props: BookInfoButtonsProps): JSX.Element => {
   const { isbn, isHistoryExist, isReviewExist, afterRequestHandler } = props;
   const { isLogedIn } = useUserInfo();
 
-  useEffect(() => {});
-  if (!isLogedIn || isHistoryExist == null || isReviewExist == null) {
+  console.log('!isLogedIn', !isLogedIn);
+  console.log('isHistoryExist == null', isHistoryExist == null);
+  console.log('isReviewExist == null', isReviewExist == null);
+
+  if (!isLogedIn) {
+    return <></>;
+  }
+
+  if (isHistoryExist == null || isReviewExist == null) {
     return (
       <Center mt={16}>
         <Spinner />

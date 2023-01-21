@@ -6,6 +6,7 @@ import { IReview } from 'interface/models/review';
 import { IUser } from 'interface/models/user';
 import { withId } from 'interface/withId';
 import { Box, Flex, Spacer, Text, Menu, MenuButton, MenuList, MenuItem } from '@chakra-ui/react';
+import { useUserInfo } from 'client/hooks/useUserInfo';
 const EvaluateStars = (props: { point: number }): JSX.Element => {
   const { point } = props;
   const arr = [1, 2, 3, 4, 5];
@@ -40,13 +41,14 @@ type ReviewProps = {
 
 export const Review = (props: ReviewProps): JSX.Element => {
   const { deleteHandler, review } = props;
+  const { user } = useUserInfo();
 
-  const user = review.reviewer as unknown as IUser & withId; // review取得時にpopulateされている
-  const isMyReview = user._id === review.reviewer._id.toString();
+  const reviewer = review.reviewer as unknown as IUser & withId; // review取得時にpopulateされている
+  const isMyReview = user?._id === review.reviewer._id.toString();
 
   return (
     <Flex>
-      <IconImage src={user.image} size='40px' />
+      <IconImage src={reviewer.image} size='40px' />
       <Box
         rounded={10}
         minWidth={{ base: 200, md: 300 }}
