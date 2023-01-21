@@ -1,10 +1,9 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { unstable_getServerSession } from 'next-auth';
 import { ReviewService } from 'server/services/review';
-import { ReviewAndPointService } from 'server/services/reviewAndPoint';
 import { authOptions } from './auth/[...nextauth]';
 
-const isValidBody = (point: number, review: string, isbn: number) => {
+const isValidBody = (point: number, review: string, isbn: number, isPublished: boolean) => {
   // pointに関するバリデーション
   if (isNaN(point) || 1 > point || 5 < point) {
     return false;
@@ -17,6 +16,11 @@ const isValidBody = (point: number, review: string, isbn: number) => {
 
   // isbnに関するバリデーション
   if (isNaN(isbn) || isbn.toString().length != 13) {
+    return false;
+  }
+
+  // isPublishedに関するバリデーション
+  if (typeof isPublished !== 'boolean') {
     return false;
   }
   return true;
@@ -32,18 +36,19 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
           // セッションがない場合はエラー
           res.status(400).json({ error: 'session is required' });
         } else {
-          const { point, review, isbn } = body;
-          if (!isValidBody(point, review, isbn)) {
+          const { point, review, isbn, isPublished } = body;
+          if (!isValidBody(point, review, isbn, isPublished)) {
             // リクエストのbodyが適切じゃない
             res.status(400).json({ error: 'invalid request body' });
           } else {
             // 正常なリクエストの場合は、DBを更新
             try {
-              await ReviewAndPointService.postReviewAndPoint(
+              await ReviewService.postReview(
                 Number(point),
                 review,
                 session.user._id,
                 isbn,
+                isPublished,
               );
               res.status(200).json({});
             } catch {
@@ -61,7 +66,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
           res.status(400).json({ statusCode: 400, message: 'invalid query parameter' });
         } else {
           try {
-            const data = await ReviewService.getReviewByIsbn(isbn, page);
+            const data = await ReviewService.getPublishedReviewByIsbn(isbn, page);
             res.status(200).json(data);
           } catch {
             res.status(500).json({ error: 'can not get review' });

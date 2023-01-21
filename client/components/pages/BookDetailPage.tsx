@@ -10,9 +10,9 @@ export const BookDetailPage = (props: IBookInfo): JSX.Element => {
     <Box my={{ base: '16px', md: '24px' }} maxWidth={800} mx={{ base: '24px', md: 'auto' }}>
       <BookInfo {...props} />
       <BookInfoButtons {...props} />
-      <Box mt={12}>
+      {/* <Box mt={12}>
         <AveragePoints />
-      </Box>
+      </Box> */}
       <Box mt={12}>
         <OurReview isbn={props.isbn} />
       </Box>

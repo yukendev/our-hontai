@@ -35,9 +35,14 @@ export const getBookStatus = async (isbn: number) => {
 };
 
 // 本に対する感想を投稿
-export const postReview = async (isbn: number, point: number, review: string) => {
+export const postReview = async (
+  isbn: number,
+  point: number,
+  review: string,
+  isPublished: boolean,
+) => {
   try {
-    const res = await axios.post('/api/book_review', { isbn, point, review });
+    const res = await axios.post('/api/book_review', { isbn, point, review, isPublished });
     return res;
   } catch (err) {
     // TODO: しっかりエラーハンドリング

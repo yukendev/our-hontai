@@ -1,5 +1,12 @@
 import { IReview } from 'interface/models/review';
 
 export interface IReviewService {
-  getReviewByIsbn(isbn: number, page: number): Promise<IReview[]>;
+  getPublishedReviewByIsbn(isbn: number, page: number): Promise<IReview[]>;
+  postReview: (
+    point: number,
+    review: string,
+    userId: string,
+    isbn: number,
+    isPublished: boolean,
+  ) => Promise<void>;
 }
