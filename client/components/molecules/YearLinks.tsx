@@ -5,9 +5,8 @@ export const YearLinks = (): JSX.Element => {
   const generateYearLink = () => {
     const links = [];
     for (let i = 2004; i < 2024; i++) {
-      console.log(i);
       links.push(
-        <WrapItem>
+        <WrapItem key={i}>
           <Flex my={2} justifyContent='center' w={100}>
             <YearLink year={i} />
           </Flex>
