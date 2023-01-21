@@ -1,6 +1,6 @@
 import { LoginButton } from '@components/atoms/LoginButton';
 import { AboutThisSiteButton } from '@components/atoms/AboutThisSiteButton';
-import { Flex } from '@chakra-ui/react';
+import { Flex, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react';
 import { useUserInfo } from 'client/hooks/useUserInfo';
 import { IconImage } from '@components/atoms/IconImage';
 import Link from 'next/link';
@@ -9,9 +9,19 @@ import { ContactButton } from '@components/atoms/ContactButton';
 const HeaderImageIcon = (props: { src: string }): JSX.Element => {
   const { src } = props;
   return (
-    <Link href={'/profile'}>
-      <IconImage size='32px' src={src} />
-    </Link>
+    <Menu>
+      <MenuButton>
+        <IconImage size='32px' src={src} />
+      </MenuButton>
+      <MenuList>
+        <MenuItem>
+          <Link href={'/profile'}>プロフィール</Link>
+        </MenuItem>
+        <MenuItem>
+          <Link href={'/my_hontai'}>My 本屋大賞</Link>
+        </MenuItem>
+      </MenuList>
+    </Menu>
   );
 };
 

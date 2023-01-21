@@ -31,7 +31,12 @@ export const ProfileUserName = (props: { username: string }): JSX.Element => {
     <Box>
       <Text fontWeight='bold'>ユーザーネーム</Text>
       <Flex mt={1}>
-        <Input onChange={handleChange} value={usernameValue} placeholder='ユーザーネーム' />
+        <Input
+          bg='white'
+          onChange={handleChange}
+          value={usernameValue}
+          placeholder='ユーザーネーム'
+        />
         <Button ml={8} onClick={saveHandler}>
           更新
         </Button>
