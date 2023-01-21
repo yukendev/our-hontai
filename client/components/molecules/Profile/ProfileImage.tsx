@@ -6,7 +6,6 @@ export const ProfileImage = (props: { src: string }): JSX.Element => {
   return (
     <Box>
       <IconImage src={src} size='120px' />
-      <button>画像を変更する</button>
     </Box>
   );
 };
