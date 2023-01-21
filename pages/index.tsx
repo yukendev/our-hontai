@@ -5,7 +5,6 @@ import { Header } from '@components/organisms/Header';
 import { TopInfoLabel } from '@components/organisms/TopInfoLabel';
 import { TopPageImage } from '@components/organisms/TopPageImage';
 import { YearLinkWrapper } from '@components/organisms/YearLinkWrapper';
-import { colors } from 'client/styles/colors';
 import { IBook } from 'interface/models/book';
 import { GetStaticProps } from 'next';
 import 'react-multi-carousel/lib/styles.css';
@@ -37,3 +36,37 @@ export default function Home(props: Props) {
     </Flex>
   );
 }
+
+export const getStaticProps: GetStaticProps<Props> = async () => {
+  // TOPページで掲載する年
+  const years = ['2020', '2021', '2022'];
+
+  let books = {};
+
+  try {
+    // 指定された年の本の情報を一気に取得
+    const result = await Promise.all(
+      years.map((year) => {
+        return BookService.getNominatedBooksByYear(Number(year));
+      }),
+    );
+
+    // 指定された年をkeyに本の情報の配列をObjectにした後、propsにマージする
+    years.forEach((year, idx) => {
+      const obj = {
+        [year]: result[idx],
+      };
+      Object.assign(books, obj);
+    });
+  } catch (err) {
+    console.log(err);
+  }
+
+  const jsonData = JSON.parse(JSON.stringify(books));
+
+  return {
+    props: {
+      books: jsonData,
+    },
+  };
+};
