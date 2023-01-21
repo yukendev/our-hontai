@@ -17,7 +17,10 @@ ReviewSchema.statics.getByUserAndBook = async function (userId: string, bookId: 
 
 ReviewSchema.statics.getByBookId = async function (bookId: string, page: number) {
   const reviewsPerPage = 5; // 1ページに取得するreviewの数
-  return this.find({ book: bookId }, { limit: reviewsPerPage, skip: (page - 1) * reviewsPerPage })
+
+  return this.find({ book: bookId })
+    .skip((page - 1) * reviewsPerPage)
+    .limit(reviewsPerPage)
     .populate('reviewer')
     .exec();
 };
