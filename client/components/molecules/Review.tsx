@@ -50,7 +50,7 @@ export const Review = (props: ReviewProps): JSX.Element => {
   return (
     <Flex>
       <IconImage src={user.image} size='40px' />
-      <Box rounded={10} maxWidth={650} py={3} px={6} mx={6} bg='gray.50'>
+      <Box rounded={10} minWidth={300} maxWidth={650} py={3} px={6} mx={6} bg='gray.50'>
         <Flex>
           <EvaluateStars point={review.point} />
           <Spacer />
