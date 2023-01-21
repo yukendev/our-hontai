@@ -9,4 +9,5 @@ export interface IReviewService {
     isbn: number,
     isPublished: boolean,
   ) => Promise<void>;
+  deleteReview(isbn: number, userId: string): Promise<void>;
 }

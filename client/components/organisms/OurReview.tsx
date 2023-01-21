@@ -1,42 +1,35 @@
 import { Box, Center, Spinner, Text } from '@chakra-ui/react';
 import { Review } from '@components/molecules/Review';
-import { getReviewBy } from 'client/util/api';
+import { useMyToaster } from 'client/util/toaster';
 import { IReview } from 'interface/models/review';
-import { useState } from 'react';
 
 import InfiniteScroll from 'react-infinite-scroller';
 
-export const OurReview = (props: { isbn: number }): JSX.Element => {
-  const { isbn } = props;
-  const [reviews, setReviews] = useState<IReview[] | undefined>();
-  const [hasMore, setHasMore] = useState(true); //再読み込み判定
-  const [hasNoReview, setHasNoReview] = useState(false);
+type OurReviewProps = {
+  loadFunc: (page: number) => Promise<void>;
+  hasMore: boolean;
+  reviews: IReview[] | undefined;
+  deleteReviewHandler: () => Promise<void>;
+};
 
-  const loadFunc = async (page: number) => {
-    const res = await getReviewBy(isbn, page);
-    const fetchedReviews = res.data;
-    if (page === 1 && fetchedReviews.length < 1) {
-      // まだ感想がない
-      setReviews([]);
-      setHasNoReview(true);
+export const OurReview = (props: OurReviewProps): JSX.Element => {
+  const { loadFunc, hasMore, reviews, deleteReviewHandler } = props;
+  const { showToaster } = useMyToaster();
+
+  const deleteHandler = async () => {
+    try {
+      await deleteReviewHandler();
+      showToaster('success', '感想を削除しました');
+    } catch {
+      showToaster('error', '感想を削除できませんでした');
     }
-    if (fetchedReviews.length < 1) {
-      setHasMore(false);
-      return;
-    }
-    setReviews([...(reviews ?? []), ...fetchedReviews]);
   };
 
   return (
-    <Box>
+    <Box mb={16}>
       <Text mb={6} fontWeight='bold'>
         みんなの感想
       </Text>
-      {hasNoReview && (
-        <Center my={16}>
-          <Text>まだ感想が投稿されていません。よかったら感想を書いてみてください！</Text>
-        </Center>
-      )}
       <InfiniteScroll
         pageStart={0}
         loadMore={loadFunc}
@@ -55,7 +48,7 @@ export const OurReview = (props: { isbn: number }): JSX.Element => {
           reviews.map((review, idx) => {
             return (
               <Box my={6} key={idx}>
-                <Review review={review} />
+                <Review deleteHandler={deleteHandler} review={review} />
               </Box>
             );
           })

@@ -60,4 +60,12 @@ export const ReviewService: IReviewService = {
       throw Error('can not get review frmo db');
     }
   },
+  async deleteReview(isbn: number, userId: string): Promise<void> {
+    try {
+      const book = await BookModel.getByIsbn(isbn);
+      await ReviewModel.findOneAndDelete({ book: book._id, reviewer: userId });
+    } catch (err) {
+      throw Error('can not get review frmo db');
+    }
+  },
 };

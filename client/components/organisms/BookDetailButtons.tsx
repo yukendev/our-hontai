@@ -7,36 +7,16 @@ import { getBookStatus } from 'client/util/api';
 import { IBookInfo } from 'interface/bookInfo';
 import { useCallback, useEffect, useState } from 'react';
 
-const useBookStatus = (isbn: number) => {
-  const [isHistoryExist, setIsHistoryExist] = useState<boolean | undefined>();
-  const [isReviewExist, setIsReviewExist] = useState<boolean | undefined>();
-
-  const resetBookStatus = useCallback(async () => {
-    setIsHistoryExist(undefined);
-    setIsReviewExist(undefined);
-    const bookStatus = await getBookStatus(isbn);
-    setIsHistoryExist(bookStatus.data.isHistoryExist);
-    setIsReviewExist(bookStatus.data.isReviewExist);
-  }, [isbn]);
-
-  useEffect(() => {
-    resetBookStatus();
-  }, [resetBookStatus]);
-
-  return {
-    isReviewExist,
-    isHistoryExist,
-    resetBookStatus,
-  };
+type BookInfoButtonsProps = {
+  isbn: number;
+  isHistoryExist: boolean | undefined;
+  isReviewExist: boolean | undefined;
+  afterRequestHandler: () => void;
 };
 
-export const BookInfoButtons = (props: IBookInfo): JSX.Element => {
+export const BookInfoButtons = (props: BookInfoButtonsProps): JSX.Element => {
+  const { isbn, isHistoryExist, isReviewExist, afterRequestHandler } = props;
   const { isLogedIn } = useUserInfo();
-  const { isHistoryExist, isReviewExist, resetBookStatus } = useBookStatus(props.isbn);
-
-  const afterRequestHandler = useCallback(() => {
-    resetBookStatus();
-  }, [resetBookStatus]);
 
   useEffect(() => {});
   if (!isLogedIn || isHistoryExist == null || isReviewExist == null) {
@@ -51,19 +31,19 @@ export const BookInfoButtons = (props: IBookInfo): JSX.Element => {
     <Box>
       {isHistoryExist && (
         <Box my={8}>
-          <AlreadyReadButton isbn={props.isbn} afterRequestHandler={afterRequestHandler} />
+          <AlreadyReadButton isbn={isbn} afterRequestHandler={afterRequestHandler} />
         </Box>
       )}
 
       {isHistoryExist && !isReviewExist && (
         <Box my={8}>
-          <ReviewButton isbn={props.isbn} afterRequestHandler={afterRequestHandler} />
+          <ReviewButton isbn={isbn} afterRequestHandler={afterRequestHandler} />
         </Box>
       )}
 
       {!isHistoryExist && (
         <Box my={8}>
-          <RecordReadingButton isbn={props.isbn} afterRequestHandler={afterRequestHandler} />
+          <RecordReadingButton isbn={isbn} afterRequestHandler={afterRequestHandler} />
         </Box>
       )}
     </Box>
