@@ -7,7 +7,7 @@ export const ReviewService: IReviewService = {
   async getReviewByIsbn(isbn: number, page: number): Promise<IReview[]> {
     try {
       const book = await BookModel.getByIsbn(isbn);
-      const reviews = await ReviewModel.getByBookId(book._id, page);
+      const reviews = await ReviewModel.getPublishedReviewByBookId(book._id, page);
 
       return reviews;
     } catch {

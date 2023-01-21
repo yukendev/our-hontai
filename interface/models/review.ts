@@ -16,4 +16,5 @@ export interface IReviewDocument extends IReview, Document {}
 export interface IReviewModel extends Model<IReviewDocument> {
   getByUserAndBook(userId: string, bookId: string): Promise<IReview | null>;
   getByBookId: (bookId: string, page: number) => Promise<(IReview & withId)[]>;
+  getPublishedReviewByBookId: (bookId: string, page: number) => Promise<(IReview & withId)[]>;
 }

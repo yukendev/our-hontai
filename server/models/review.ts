@@ -26,4 +26,14 @@ ReviewSchema.statics.getByBookId = async function (bookId: string, page: number)
     .exec();
 };
 
+ReviewSchema.statics.getPublishedReviewByBookId = async function (bookId: string, page: number) {
+  const reviewsPerPage = 5; // 1ページに取得するreviewの数
+
+  return this.find({ book: bookId, isPublished: true })
+    .skip((page - 1) * reviewsPerPage)
+    .limit(reviewsPerPage)
+    .populate('reviewer')
+    .exec();
+};
+
 export const ReviewModel = getOrCreateModel<IReviewDocument, IReviewModel>('Review', ReviewSchema);
