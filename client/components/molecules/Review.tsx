@@ -30,9 +30,7 @@ const TrashIcon = (props: { deleteHandler: () => void }): JSX.Element => {
         <DeleteIcon cursor='pointer' />
       </MenuButton>
       <MenuList>
-        <MenuItem>
-          <button onClick={deleteHandler}>削除</button>
-        </MenuItem>
+        <MenuItem onClick={deleteHandler}>削除</MenuItem>
       </MenuList>
     </Menu>
   );
