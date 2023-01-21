@@ -9,7 +9,8 @@ export const TopInfoLabel = (): JSX.Element => {
         rounded={10}
         py={6}
         color='white'
-        mx={{ base: '24px', md: 'auto' }}
+        // mx={{ base: 2, md: 'auto' }}
+        mx='auto'
         maxWidth={600}
         bg={colors.darkOrange}
       >
