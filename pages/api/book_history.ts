@@ -25,12 +25,13 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
           }
           break;
         case 'DELETE':
-          if (!body.isbn) {
+          const isbn = Number(query.isbn);
+          if (isNaN(isbn)) {
             // リクエストのbodyが適切じゃない
             res.status(400).json({ error: 'invalid request body' });
           } else {
             // 正常なリクエストの場合は、DBを更新
-            const data = await BookHistoryService.deleteBookHistory(session.user._id, body.isbn);
+            const data = await BookHistoryService.deleteBookHistory(session.user._id, isbn);
             res.status(200).json(data);
           }
           break;

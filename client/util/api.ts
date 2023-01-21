@@ -23,6 +23,17 @@ export const postBookHistory = async (isbn: number) => {
   }
 };
 
+// 本詳細画面から読書の記録を削除
+export const deleteBookHistory = async (isbn: number) => {
+  try {
+    const res = await axios.delete('/api/book_history', { params: { isbn } });
+    return res;
+  } catch (err) {
+    // TODO: しっかりエラーハンドリング
+    throw Error(`${err}`);
+  }
+};
+
 // その本に対する自分の情報を取得: 読んだか、感想は書いたか
 export const getBookStatus = async (isbn: number) => {
   try {

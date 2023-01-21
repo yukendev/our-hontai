@@ -12,6 +12,8 @@ import {
   useDisclosure,
 } from '@chakra-ui/react';
 import { useRef } from 'react';
+import { deleteBookHistory } from 'client/util/api';
+import { useMyToaster } from 'client/util/toaster';
 
 type AlertProps = {
   isOpen: boolean;
@@ -46,11 +48,19 @@ const Alert = (props: AlertProps): JSX.Element => {
   );
 };
 
-export const AlreadyReadButton = (): JSX.Element => {
+export const AlreadyReadButton = (props: { isbn: number }): JSX.Element => {
+  const { isbn } = props;
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cancelRef = useRef();
+  const { showToaster } = useMyToaster();
 
-  const deleteHandler = () => {
+  const deleteHandler = async () => {
+    try {
+      await deleteBookHistory(isbn);
+      showToaster('success', '記録を削除しました');
+    } catch {
+      showToaster('error', 'エラーが発生しました');
+    }
     onClose();
   };
   return (

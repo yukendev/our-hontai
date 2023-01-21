@@ -51,7 +51,7 @@ export const BookInfoButtons = (props: IBookInfo): JSX.Element => {
     <Box>
       {isHistoryExist && (
         <Box my={8}>
-          <AlreadyReadButton />
+          <AlreadyReadButton isbn={props.isbn} />
         </Box>
       )}
 
