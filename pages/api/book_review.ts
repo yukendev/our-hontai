@@ -29,9 +29,9 @@ const isValidBody = (point: number, review: string, isbn: number, isPublished: b
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const { method, body, query } = req;
+    const session = await unstable_getServerSession(req, res, authOptions);
     switch (method) {
       case 'POST':
-        const session = await unstable_getServerSession(req, res, authOptions);
         if (!session) {
           // セッションがない場合はエラー
           res.status(400).json({ error: 'session is required' });
@@ -74,17 +74,22 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         }
         break;
       case 'DELETE':
-        try {
-          const isbn = Number(query.isbn);
-          // isbn(クエリパラメーター)が13桁の数字じゃない場合は、エラーを返す
-          if (isNaN(isbn) || query.isbn?.length != 13) {
-            res.status(400).json({ statusCode: 400, message: 'invalid query parameter' });
-          } else {
-            const data = await ReviewService.deleteReview(isbn);
-            res.status(200).json(data);
+        if (!session) {
+          // セッションがない場合はエラー
+          res.status(400).json({ error: 'session is required' });
+        } else {
+          try {
+            const isbn = Number(query.isbn);
+            // isbn(クエリパラメーター)が13桁の数字じゃない場合は、エラーを返す
+            if (isNaN(isbn) || query.isbn?.length != 13) {
+              res.status(400).json({ statusCode: 400, message: 'invalid query parameter' });
+            } else {
+              await ReviewService.deleteReview(isbn, session.user._id);
+              res.status(200).json({});
+            }
+          } catch {
+            res.status(500).json({ error: 'can not delete review' });
           }
-        } catch {
-          res.status(500).json({ error: 'can not delete review' });
         }
 
         break;
