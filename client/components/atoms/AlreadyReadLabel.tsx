@@ -48,8 +48,11 @@ const Alert = (props: AlertProps): JSX.Element => {
   );
 };
 
-export const AlreadyReadButton = (props: { isbn: number }): JSX.Element => {
-  const { isbn } = props;
+export const AlreadyReadButton = (props: {
+  isbn: number;
+  afterRequestHandler: () => void;
+}): JSX.Element => {
+  const { isbn, afterRequestHandler } = props;
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cancelRef = useRef();
   const { showToaster } = useMyToaster();
@@ -58,6 +61,7 @@ export const AlreadyReadButton = (props: { isbn: number }): JSX.Element => {
     try {
       await deleteBookHistory(isbn);
       showToaster('success', '記録を削除しました');
+      afterRequestHandler();
     } catch {
       showToaster('error', 'エラーが発生しました');
     }

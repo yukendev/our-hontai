@@ -1,7 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { unstable_getServerSession } from 'next-auth';
-import { BookModel } from 'server/models/book';
-import { BookHistoryModel } from 'server/models/bookHistory';
 import { BookHistoryService } from 'server/services/bookHistory';
 import { authOptions } from './auth/[...nextauth]';
 

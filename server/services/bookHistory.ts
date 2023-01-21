@@ -49,15 +49,15 @@ export const BookHistoryService: IBookHistoryService = {
         await ReviewModel.findOneAndDelete({ reviewer: userId, book: bookInDb._id }, { session });
 
         // トランザクションをコミット
-        session.commitTransaction();
+        await session.commitTransaction();
         console.log('----------commit----------');
       } catch {
         console.log('----------abort----------');
-        session.abortTransaction();
+        await session.abortTransaction();
         throw Error();
       } finally {
         console.log('----------end----------');
-        session.endSession();
+        await session.endSession();
       }
     } catch {
       throw Error('can not save book history');

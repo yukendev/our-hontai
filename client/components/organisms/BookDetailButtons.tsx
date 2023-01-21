@@ -31,7 +31,7 @@ const useBookStatus = (isbn: number) => {
 };
 
 export const BookInfoButtons = (props: IBookInfo): JSX.Element => {
-  const { isLogedIn, user } = useUserInfo();
+  const { isLogedIn } = useUserInfo();
   const { isHistoryExist, isReviewExist, resetBookStatus } = useBookStatus(props.isbn);
 
   const afterRequestHandler = useCallback(() => {
@@ -51,7 +51,7 @@ export const BookInfoButtons = (props: IBookInfo): JSX.Element => {
     <Box>
       {isHistoryExist && (
         <Box my={8}>
-          <AlreadyReadButton isbn={props.isbn} />
+          <AlreadyReadButton isbn={props.isbn} afterRequestHandler={afterRequestHandler} />
         </Box>
       )}
 
