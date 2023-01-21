@@ -16,7 +16,7 @@ type BibliographyProps = {
 export const Bibliography = (props: BibliographyProps) => {
   const { title, author, publisher, outline, isbn } = props;
   return (
-    <Box>
+    <Box boxShadow='lg' rounded={8} p={8} bg='white'>
       <BookTitle title={title} />
       <Box mt='3'>
         <BookAuthor author={author} />
