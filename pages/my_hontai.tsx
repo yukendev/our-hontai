@@ -11,8 +11,10 @@ export default function MyHontaiPage(props: Props) {
       <Center flex={1}>
         <Box>
           <Image mx='auto' src='/wip.png' width={60} alt='wip image' />
-          <Text>ただいま開発中の機能です。もう少しお待ちください</Text>
-          <Text>自分が読んだ本の記録や、評価などの一覧を表示できる機能を追加する予定です</Text>
+          <Box mx={8}>
+            <Text>ただいま開発中の機能です。もう少しお待ちください。</Text>
+            <Text>自分が読んだ本の記録や、評価などの一覧を表示できる機能を追加する予定です。</Text>
+          </Box>
         </Box>
       </Center>
       <Footer />

@@ -47,15 +47,25 @@ export const Review = (props: ReviewProps): JSX.Element => {
   return (
     <Flex>
       <IconImage src={user.image} size='40px' />
-      <Box rounded={10} minWidth={300} maxWidth={650} py={3} px={6} mx={6} bg='gray.50'>
+      <Box
+        rounded={10}
+        minWidth={{ base: 200, md: 300 }}
+        maxWidth={650}
+        py={3}
+        px={6}
+        mx={6}
+        bg='gray.50'
+      >
         <Flex>
           <EvaluateStars point={review.point} />
           <Spacer />
           {isMyReview && <TrashIcon deleteHandler={deleteHandler} />}
         </Flex>
-        <Box my={2}>
-          <Text>{review.content}</Text>
-        </Box>
+        {review.content !== null && (
+          <Box my={2}>
+            <Text>{review.content}</Text>
+          </Box>
+        )}
       </Box>
     </Flex>
   );

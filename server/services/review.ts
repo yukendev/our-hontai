@@ -21,25 +21,16 @@ export const ReviewService: IReviewService = {
     }
 
     const reviewInDb = await ReviewModel.getByUserAndBook(user._id, book._id);
-    // const pointInDb = await PointModel.getByUserAndBook(user._id, book._id);
 
     // 評価は1冊に対して1つまで
     if (reviewInDb !== null) {
       throw Error('already evaluated');
     }
 
-    // const reviewToSave: IReview = {
-    //   book: book as unknown as Types.ObjectId, // 結構無理やり型を認知させている
-    //   reviewer: user as unknown as Types.ObjectId,
-    //   content: review,
-    //   point,
-    //   isPublished,
-    // };
-
     const reviewToSave = new ReviewModel({
       book: book as unknown as Types.ObjectId, // 結構無理やり型を認知させている
       reviewer: user as unknown as Types.ObjectId,
-      content: review,
+      content: review === '' ? null : review, // 空文字はnullで保存
       point,
       isPublished,
     });

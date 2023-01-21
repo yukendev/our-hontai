@@ -101,7 +101,7 @@ export const ReviewModal = (props: ReviewModalProps): JSX.Element => {
       if (review.length > 500) {
         showToaster('error', '感想は500文字以内にしてください');
       } else {
-        const res = await postReview(isbn, point, review, isPublished);
+        await postReview(isbn, point, review, isPublished);
         afterRequestHandler();
         showToaster('success', '送信しました');
         onClose();

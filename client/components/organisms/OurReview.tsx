@@ -35,7 +35,7 @@ export const OurReview = (props: OurReviewProps): JSX.Element => {
         loadMore={loadFunc}
         hasMore={hasMore}
         loader={
-          <Center mt={16}>
+          <Center key={0} mt={16}>
             <Spinner />
           </Center>
         }
