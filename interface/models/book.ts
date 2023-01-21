@@ -7,6 +7,7 @@ export interface IBook {
   image: string; // 表紙画像のGCSへのパス
   year: number; // ノミネートした年
   isGrandPrize: boolean; // 大賞を取ったかどうか
+  averagePoint: number; // 平均評価
 }
 
 // interface for methods

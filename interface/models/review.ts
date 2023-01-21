@@ -6,6 +6,7 @@ export interface IReview {
   book: Types.ObjectId; // コメントがついた本
   reviewer: Types.ObjectId; // コメントした人
   content: string; // コメント
+  point: number; // ポイント
   isPublished: boolean; // 公開するかどうか
 }
 

@@ -6,7 +6,8 @@ const ReviewSchema = new mongoose.Schema<IReviewDocument>(
   {
     book: { type: Schema.Types.ObjectId, ref: 'Book', required: true },
     reviewer: { type: Schema.Types.ObjectId, ref: 'User', required: true },
-    content: { type: String, required: true },
+    content: { type: String },
+    point: { type: Number, required: true },
     isPublished: { type: Boolean, required: true },
   },
   { timestamps: true },
