@@ -24,6 +24,16 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             res.status(200).json(data);
           }
           break;
+        case 'DELETE':
+          if (!body.isbn) {
+            // リクエストのbodyが適切じゃない
+            res.status(400).json({ error: 'invalid request body' });
+          } else {
+            // 正常なリクエストの場合は、DBを更新
+            const data = await BookHistoryService.deleteBookHistory(session.user._id, body.isbn);
+            res.status(200).json(data);
+          }
+          break;
         default:
           res.status(405).end(`Method ${method} Not Allowed`);
       }

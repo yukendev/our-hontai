@@ -1,7 +1,9 @@
 import { IBookHistory, IBookHistoryDocument } from 'interface/models/bookHistory';
 import { IBookHistoryService } from 'interface/services/bookHistory';
+import mongoose from 'mongoose';
 import { BookModel } from 'server/models/book';
 import { BookHistoryModel } from 'server/models/bookHistory';
+import { ReviewModel } from 'server/models/review';
 import { UserModel } from 'server/models/user';
 
 export const BookHistoryService: IBookHistoryService = {
@@ -23,6 +25,40 @@ export const BookHistoryService: IBookHistoryService = {
       const bookHistory = new BookHistoryModel(bookHistoryObj);
 
       return await bookHistory.save();
+    } catch {
+      throw Error('can not save book history');
+    }
+  },
+  async deleteBookHistory(userId: string, isbn: number) {
+    try {
+      const bookInDb = await BookModel.findOne({ isbn });
+      // isbnに一致する本がないならエラー
+      if (!bookInDb) {
+        throw Error('invalid isbn');
+      }
+
+      const session = await mongoose.startSession();
+
+      session.startTransaction();
+
+      try {
+        // 本の記録を削除
+        await BookHistoryModel.deleteOne({ user: userId, book: bookInDb._id }, { session });
+
+        // 本の評価を削除
+        await ReviewModel.findOneAndDelete({ reviewer: userId, book: bookInDb._id }, { session });
+
+        // トランザクションをコミット
+        session.commitTransaction();
+        console.log('----------commit----------');
+      } catch {
+        console.log('----------abort----------');
+        session.abortTransaction();
+        throw Error();
+      } finally {
+        console.log('----------end----------');
+        session.endSession();
+      }
     } catch {
       throw Error('can not save book history');
     }
