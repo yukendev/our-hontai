@@ -54,12 +54,14 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         break;
       case 'GET':
         const isbn = Number(query.isbn);
+        const page = Number(query.page);
         // isbn(クエリパラメーター)が13桁の数字じゃない場合は、エラーを返す
-        if (isNaN(isbn) || query.isbn?.length != 13) {
+        // ppageが数字じゃない、0より小さい場合もエラーを返す
+        if (isNaN(isbn) || query.isbn?.length != 13 || isNaN(page) || page < 0) {
           res.status(400).json({ statusCode: 400, message: 'invalid query parameter' });
         } else {
           try {
-            const data = await ReviewService.getReviewByIsbn(isbn);
+            const data = await ReviewService.getReviewByIsbn(isbn, page);
             res.status(200).json(data);
           } catch {
             res.status(500).json({ error: 'can not get review' });
