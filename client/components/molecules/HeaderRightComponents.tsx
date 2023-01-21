@@ -17,7 +17,9 @@ const HeaderImageIcon = (props: { src: string }): JSX.Element => {
         <MenuItem>
           <Link href={'/profile'}>プロフィール</Link>
         </MenuItem>
-        <MenuItem>My 本屋大賞</MenuItem>
+        <MenuItem>
+          <Link href={'/my_hontai'}>My 本屋大賞</Link>
+        </MenuItem>
       </MenuList>
     </Menu>
   );
