@@ -13,7 +13,12 @@ export const TopInfoLabel = (): JSX.Element => {
         maxWidth={600}
         bg={colors.darkOrange}
       >
-        <Link fontSize='lg' fontWeight='bold' href='https://www.hontai.or.jp/' isExternal>
+        <Link
+          fontSize={{ base: 'sm', md: 'lg' }}
+          fontWeight='bold'
+          href='https://www.hontai.or.jp/'
+          isExternal
+        >
           2023年本屋大賞二次投票開催中📚(1/20~2/28)
         </Link>
       </Center>
