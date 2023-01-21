@@ -6,9 +6,6 @@ import { IReview } from 'interface/models/review';
 import { IUser } from 'interface/models/user';
 import { withId } from 'interface/withId';
 import { Box, Flex, Spacer, Text, Menu, MenuButton, MenuList, MenuItem } from '@chakra-ui/react';
-import { deleteReview } from 'client/util/api';
-import { useMyToaster } from 'client/util/toaster';
-
 const EvaluateStars = (props: { point: number }): JSX.Element => {
   const { point } = props;
   const arr = [1, 2, 3, 4, 5];
