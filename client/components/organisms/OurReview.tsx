@@ -1,6 +1,7 @@
 import { Box, Center, Spinner, Text } from '@chakra-ui/react';
 import { Review } from '@components/molecules/Review';
-import { getReviewByPage } from 'client/util/api';
+import { deleteReview, getReviewByPage } from 'client/util/api';
+import { useMyToaster } from 'client/util/toaster';
 import { IReview } from 'interface/models/review';
 import { useState } from 'react';
 
@@ -11,6 +12,7 @@ export const OurReview = (props: { isbn: number }): JSX.Element => {
   const [reviews, setReviews] = useState<IReview[] | undefined>();
   const [hasMore, setHasMore] = useState(true); //再読み込み判定
   const [hasNoReview, setHasNoReview] = useState(false);
+  const { showToaster } = useMyToaster();
 
   const loadFunc = async (page: number) => {
     const res = await getReviewByPage(isbn, page);
@@ -25,6 +27,16 @@ export const OurReview = (props: { isbn: number }): JSX.Element => {
       return;
     }
     setReviews([...(reviews ?? []), ...fetchedReviews]);
+  };
+
+  const deleteHandler = async () => {
+    try {
+      await deleteReview(isbn);
+      loadFunc(1);
+      showToaster('success', '感想を削除しました');
+    } catch {
+      showToaster('error', '感想を削除できませんでした');
+    }
   };
 
   return (
@@ -55,7 +67,7 @@ export const OurReview = (props: { isbn: number }): JSX.Element => {
           reviews.map((review, idx) => {
             return (
               <Box my={6} key={idx}>
-                <Review isbn={isbn} review={review} />
+                <Review deleteHandler={deleteHandler} review={review} />
               </Box>
             );
           })

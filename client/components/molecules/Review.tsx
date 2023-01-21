@@ -39,24 +39,15 @@ const TrashIcon = (props: { deleteHandler: () => void }): JSX.Element => {
 };
 
 type ReviewProps = {
-  isbn: number;
+  deleteHandler: () => void;
   review: IReview;
 };
 
 export const Review = (props: ReviewProps): JSX.Element => {
-  const { isbn, review } = props;
-  const { showToaster } = useMyToaster();
+  const { deleteHandler, review } = props;
+
   const user = review.reviewer as unknown as IUser & withId; // review取得時にpopulateされている
   const isMyReview = user._id === review.reviewer._id.toString();
-
-  const deleteHandler = async () => {
-    try {
-      await deleteReview(isbn);
-      showToaster('success', '感想を削除しました');
-    } catch {
-      showToaster('error', '感想を削除できませんでした');
-    }
-  };
 
   return (
     <Flex>
