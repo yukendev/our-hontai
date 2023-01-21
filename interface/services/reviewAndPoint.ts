@@ -4,5 +4,6 @@ export interface IReviewAndPointService {
     review: string,
     userId: string,
     isbn: number,
+    isPublished: boolean,
   ) => Promise<void>;
 }

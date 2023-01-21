@@ -8,7 +8,13 @@ import { ReviewModel } from 'server/models/review';
 import { UserModel } from 'server/models/user';
 
 export const ReviewAndPointService: IReviewAndPointService = {
-  async postReviewAndPoint(point: number, review: string, userId: string, isbn: number) {
+  async postReviewAndPoint(
+    point: number,
+    review: string,
+    userId: string,
+    isbn: number,
+    isPublished: boolean,
+  ) {
     const user = await UserModel.getById(userId);
     const book = await BookModel.getByIsbn(isbn);
 
@@ -28,6 +34,7 @@ export const ReviewAndPointService: IReviewAndPointService = {
       book: book as unknown as Types.ObjectId, // 結構無理やり型を認知させている
       reviewer: user as unknown as Types.ObjectId,
       content: review,
+      isPublished,
     };
 
     const pointToSave: IPoint = {

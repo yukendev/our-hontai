@@ -1,6 +1,7 @@
 import {
   Box,
   Button,
+  Checkbox,
   Flex,
   Modal,
   ModalBody,
@@ -42,10 +43,11 @@ type ReviewModalBodyProps = {
   point: number;
   setPoint: (point: number) => void;
   setReview: (review: string) => void;
+  setIsPublished: (isPublished: boolean) => void;
 };
 
 const ReviewModalBody = (props: ReviewModalBodyProps): JSX.Element => {
-  const { point, setPoint, setReview } = props;
+  const { point, setPoint, setReview, setIsPublished } = props;
   const onChangeHandler = (e: { target: { value: string } }) => {
     setReview(e.target.value);
   };
@@ -67,6 +69,9 @@ const ReviewModalBody = (props: ReviewModalBodyProps): JSX.Element => {
         あなたの感想
       </Text>
       <Textarea onChange={onChangeHandler} my={4} placeholder='Here is a sample placeholder' />
+      <Checkbox onChange={(e) => setIsPublished(e.target.checked)} defaultChecked>
+        感想を公開する(公開せず、あなただけの記録として保存することもできます)
+      </Checkbox>
     </Box>
   );
 };
@@ -83,6 +88,7 @@ export const ReviewModal = (props: ReviewModalProps): JSX.Element => {
   const [isSending, setIsSending] = useState<boolean>(false);
   const [point, setPoint] = useState<number>(5);
   const [review, setReview] = useState<string>('');
+  const [isPublished, setIsPublished] = useState<boolean>(true);
   const { showToaster } = useMyToaster();
 
   const sendReviewHandler = async () => {
@@ -91,7 +97,7 @@ export const ReviewModal = (props: ReviewModalProps): JSX.Element => {
       if (review.length > 500) {
         showToaster('error', '感想は500文字以内にしてください');
       } else {
-        const res = await postReview(isbn, point, review);
+        const res = await postReview(isbn, point, review, isPublished);
         afterRequestHandler();
         showToaster('success', '送信しました');
         onClose();
@@ -114,7 +120,12 @@ export const ReviewModal = (props: ReviewModalProps): JSX.Element => {
         </ModalHeader>
         <ModalCloseButton />
         <ModalBody>
-          <ReviewModalBody point={point} setPoint={setPoint} setReview={setReview} />
+          <ReviewModalBody
+            point={point}
+            setPoint={setPoint}
+            setReview={setReview}
+            setIsPublished={setIsPublished}
+          />
         </ModalBody>
 
         <ModalFooter justifyContent='center'>
