@@ -2,8 +2,10 @@ import { Box, Flex } from '@chakra-ui/react';
 import { BookCarousel } from '@components/organisms/BookCarousel';
 import { Footer } from '@components/organisms/Footer';
 import { Header } from '@components/organisms/Header';
+import { TopInfoLabel } from '@components/organisms/TopInfoLabel';
 import { TopPageImage } from '@components/organisms/TopPageImage';
 import { YearLinkWrapper } from '@components/organisms/YearLinkWrapper';
+import { colors } from 'client/styles/colors';
 import { IBook } from 'interface/models/book';
 import { GetStaticProps } from 'next';
 import 'react-multi-carousel/lib/styles.css';
@@ -19,6 +21,7 @@ export default function Home(props: Props) {
       <Header />
       <TopPageImage />
       <Box flex={1} my={{ base: 8, md: 16 }}>
+        <TopInfoLabel />
         {years.map((year) => {
           const nominatedBooks = books[year];
           return <BookCarousel key={year} year={Number(year)} books={nominatedBooks} />;
