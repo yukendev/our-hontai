@@ -1,6 +1,6 @@
 import { Box, Center, Spinner, Text } from '@chakra-ui/react';
 import { Review } from '@components/molecules/Review';
-import { getReviewBy } from 'client/util/api';
+import { getReviewByPage } from 'client/util/api';
 import { IReview } from 'interface/models/review';
 import { useState } from 'react';
 
@@ -13,7 +13,7 @@ export const OurReview = (props: { isbn: number }): JSX.Element => {
   const [hasNoReview, setHasNoReview] = useState(false);
 
   const loadFunc = async (page: number) => {
-    const res = await getReviewBy(isbn, page);
+    const res = await getReviewByPage(isbn, page);
     const fetchedReviews = res.data;
     if (page === 1 && fetchedReviews.length < 1) {
       // まだ感想がない
@@ -55,7 +55,7 @@ export const OurReview = (props: { isbn: number }): JSX.Element => {
           reviews.map((review, idx) => {
             return (
               <Box my={6} key={idx}>
-                <Review review={review} />
+                <Review isbn={isbn} review={review} />
               </Box>
             );
           })

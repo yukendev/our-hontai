@@ -23,7 +23,7 @@ export const postBookHistory = async (isbn: number) => {
   }
 };
 
-// 本詳細画面から読書の記録を削除
+// 本詳細画面から読書の記録を削除 ※ 記録と一緒に感想も削除
 export const deleteBookHistory = async (isbn: number) => {
   try {
     const res = await axios.delete('/api/book_history', { params: { isbn } });
@@ -45,7 +45,7 @@ export const getBookStatus = async (isbn: number) => {
   }
 };
 
-// 本に対する感想を投稿
+// 感想を投稿
 export const postReview = async (
   isbn: number,
   point: number,
@@ -62,9 +62,20 @@ export const postReview = async (
 };
 
 // 本の感想を取得
-export const getReviewBy = async (isbn: number, page: number) => {
+export const getReviewByPage = async (isbn: number, page: number) => {
   try {
     const res = await axios.get<IReview[]>('/api/book_review', { params: { isbn, page } });
+    return res;
+  } catch (err) {
+    // TODO: しっかりエラーハンドリング
+    throw Error(`${err}`);
+  }
+};
+
+// 本の感想を削除
+export const deleteReview = async (isbn: number) => {
+  try {
+    const res = await axios.delete<IReview[]>('/api/book_review', { params: { isbn } });
     return res;
   } catch (err) {
     // TODO: しっかりエラーハンドリング
