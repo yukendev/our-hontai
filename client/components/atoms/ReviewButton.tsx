@@ -13,12 +13,15 @@ export const ReviewButton = (props: ReviewButtonProps): JSX.Element => {
   return (
     <Box>
       <Center
+        boxShadow='lg'
+        cursor='pointer'
         rounded={10}
         py={6}
         color='white'
         mx={{ base: '24px', md: 'auto' }}
         maxWidth={600}
         bg={colors.darkOrange}
+        _hover={{ bg: colors.darkOrange_hover }}
         onClick={() => onOpen()}
       >
         <Text fontSize='lg' fontWeight='bold'>

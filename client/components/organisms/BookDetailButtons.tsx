@@ -1,5 +1,5 @@
 import { Box, Center, Spinner } from '@chakra-ui/react';
-import { AlreadyReadButton } from '@components/atoms/AlreadyReadLabel';
+import { AlreadyReadButton } from '@components/atoms/AlreadyReadButton';
 import { RecordReadingButton } from '@components/atoms/RecordReadingButton';
 import { ReviewButton } from '@components/atoms/ReviewButton';
 import { useUserInfo } from 'client/hooks/useUserInfo';

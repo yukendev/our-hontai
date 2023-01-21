@@ -70,6 +70,8 @@ export const AlreadyReadButton = (props: {
   return (
     <>
       <Center
+        boxShadow='lg'
+        cursor='pointer'
         onClick={() => onOpen()}
         rounded={10}
         py={6}
@@ -77,6 +79,7 @@ export const AlreadyReadButton = (props: {
         mx={{ base: '24px', md: 'auto' }}
         maxWidth={600}
         bg={colors.green}
+        _hover={{ bg: colors.green_hover }}
       >
         <Text fontSize='lg' fontWeight='bold'>
           あなたはこの本を読んでいます
