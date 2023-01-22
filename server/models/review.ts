@@ -20,7 +20,7 @@ ReviewSchema.statics.getByUserAndBook = async function (userId: string, bookId: 
 ReviewSchema.statics.getPublishedReviewByBookId = async function (bookId: string, page: number) {
   const reviewsPerPage = 5; // 1ページに取得するreviewの数
 
-  return this.find({ book: bookId, isPublished: true })
+  return this.find({ book: bookId, isPublished: true }, null, { sort: { createdAt: -1 } })
     .skip((page - 1) * reviewsPerPage)
     .limit(reviewsPerPage)
     .populate({ path: 'reviewer', select: 'image' })
