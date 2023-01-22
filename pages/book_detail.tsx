@@ -6,6 +6,7 @@ import { IBookInfo } from 'interface/bookInfo';
 import { GetServerSideProps } from 'next';
 import { BookService } from 'server/services/book';
 import { NextSeo } from 'next-seo';
+import { setupMongo } from 'server/utils/mongoose';
 
 type Props = {
   bookInfo: IBookInfo;
@@ -32,6 +33,8 @@ export default function BookDetailsPage(props: Props) {
 
 export const getServerSideProps: GetServerSideProps<Props> = async (context) => {
   const isbn = Number(context.query.isbn);
+
+  await setupMongo();
 
   try {
     const bookInfo = await BookService.getBookInfoByIsbn(isbn);
