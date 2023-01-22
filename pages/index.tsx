@@ -9,6 +9,7 @@ import { IBook } from 'interface/models/book';
 import { GetStaticProps } from 'next';
 import 'react-multi-carousel/lib/styles.css';
 import { BookService } from 'server/services/book';
+import { setupMongo } from 'server/utils/mongoose';
 
 type Props = { books: { [key: string]: IBook[] } };
 
@@ -38,6 +39,9 @@ export default function Home(props: Props) {
 }
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
+  // mongoを初期化
+  await setupMongo();
+
   // TOPページで掲載する年
   const years = ['2023', '2022', '2021'];
 
