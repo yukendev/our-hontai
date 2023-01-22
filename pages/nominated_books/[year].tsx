@@ -6,6 +6,7 @@ import { IBook } from 'interface/models/book';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { BookService } from 'server/services/book';
 import { NextSeo } from 'next-seo';
+import { setupMongo } from 'server/utils/mongoose';
 
 type PageProps = {
   year: number;
@@ -52,6 +53,8 @@ export const getStaticPaths: GetStaticPaths<PathParams> = async () => {
 
 export const getStaticProps: GetStaticProps<PageProps> = async (context) => {
   const { year } = context.params as PathParams;
+
+  await setupMongo();
 
   const books = await BookService.getNominatedBooksByYear(Number(year));
 
