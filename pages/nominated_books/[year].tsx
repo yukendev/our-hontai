@@ -5,6 +5,7 @@ import { Header } from '@components/organisms/Header';
 import { IBook } from 'interface/models/book';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { BookService } from 'server/services/book';
+import { NextSeo } from 'next-seo';
 
 type PageProps = {
   year: number;
@@ -14,13 +15,19 @@ type PageProps = {
 export default function NominatedBooksPage(props: PageProps) {
   const { year, books } = props;
   return (
-    <Flex flexDirection='column'>
-      <Header />
-      <Box my={16} flex={1}>
-        <BookList year={year} books={books} />
-      </Box>
-      <Footer />
-    </Flex>
+    <>
+      <NextSeo
+        title={`${year}年の本屋大賞ノミネート作品一覧`}
+        description={`${year}年の本屋大賞ノミネート作品一覧をまとめました。Googleアカウントでログインすることで、感想を投稿できたり、自分だけの読書記録を作ることもできます`}
+      />
+      <Flex flexDirection='column'>
+        <Header />
+        <Box my={16} flex={1}>
+          <BookList year={year} books={books} />
+        </Box>
+        <Footer />
+      </Flex>
+    </>
   );
 }
 

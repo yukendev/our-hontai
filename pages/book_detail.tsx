@@ -5,6 +5,7 @@ import { BookDetailPage } from '@components/pages/BookDetailPage';
 import { IBookInfo } from 'interface/bookInfo';
 import { GetServerSideProps } from 'next';
 import { BookService } from 'server/services/book';
+import { NextSeo } from 'next-seo';
 
 type Props = {
   bookInfo: IBookInfo;
@@ -13,13 +14,19 @@ type Props = {
 export default function BookDetailsPage(props: Props) {
   const { bookInfo } = props;
   return (
-    <Flex flexDirection='column'>
-      <Header />
-      <Box flex={1}>
-        <BookDetailPage {...bookInfo} />
-      </Box>
-      <Footer />
-    </Flex>
+    <>
+      <NextSeo
+        title={`【${bookInfo.year}年本屋大賞ノミネート】${bookInfo.author} ${bookInfo.title}`}
+        description={`${bookInfo.year}年の本屋大賞ノミネートした、${bookInfo.title}の情報を紹介します。この本を読んだ人の感想も見ることができます`}
+      />
+      <Flex flexDirection='column'>
+        <Header />
+        <Box flex={1}>
+          <BookDetailPage {...bookInfo} />
+        </Box>
+        <Footer />
+      </Flex>
+    </>
   );
 }
 
