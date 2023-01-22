@@ -14,7 +14,7 @@ type Props = { books: { [key: string]: IBook[] } };
 
 export default function Home(props: Props) {
   const { books } = props;
-  const years = Object.keys(books);
+  const years = Object.keys(books).reverse();
   return (
     <Flex flexDirection='column'>
       <Header />
@@ -39,7 +39,7 @@ export default function Home(props: Props) {
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
   // TOPページで掲載する年
-  const years = ['2021', '2022', '2023'];
+  const years = ['2023', '2022', '2021'];
 
   let books = {};
 

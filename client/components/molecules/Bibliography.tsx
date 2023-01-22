@@ -10,7 +10,7 @@ type BibliographyProps = {
   title: string; // 本のタイトル
   author: string; // 作者
   publisher: string; // 出版社
-  outline: string; // あらすじ
+  outline: string | null; // あらすじ
 };
 
 export const Bibliography = (props: BibliographyProps) => {
