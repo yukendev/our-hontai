@@ -39,7 +39,7 @@ export default function Home(props: Props) {
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
   // TOPページで掲載する年
-  const years = ['2020', '2021', '2022'];
+  const years = ['2021', '2022', '2023'];
 
   let books = {};
 
