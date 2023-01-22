@@ -23,7 +23,7 @@ ReviewSchema.statics.getPublishedReviewByBookId = async function (bookId: string
   return this.find({ book: bookId, isPublished: true })
     .skip((page - 1) * reviewsPerPage)
     .limit(reviewsPerPage)
-    .populate('reviewer')
+    .populate({ path: 'reviewer', select: 'image' })
     .exec();
 };
 

@@ -58,6 +58,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         }
         break;
       case 'GET':
+        // 表示に必要な情報のみを返す(メアドなどは返さない)
         try {
           const isbn = Number(query.isbn);
           const page = Number(query.page);
