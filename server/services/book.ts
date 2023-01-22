@@ -26,6 +26,7 @@ export const BookService: IBookService = {
         image,
         year,
         isGrandPrize,
+        averagePoint: 0, // 仮の値
         ...bookMeta,
       };
       return result;
