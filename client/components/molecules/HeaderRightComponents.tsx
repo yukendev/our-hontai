@@ -30,7 +30,7 @@ export const HeaderRightComponents = () => {
     <Flex my={3} mr={3}>
       <Flex mr={5} flexDirection='column' justifyContent='center'>
         {/* <AboutThisSiteButton /> */}
-        <ContactButton />
+        {/* <ContactButton /> */}
       </Flex>
       {isLogedIn ? (
         <Flex mr={5} flexDirection='column' justifyContent='center'>
