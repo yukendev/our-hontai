@@ -10,6 +10,7 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
+  Spacer,
   Spinner,
   Text,
   Textarea,
@@ -56,14 +57,17 @@ const ReviewModalBody = (props: ReviewModalBodyProps): JSX.Element => {
       <Text fontWeight='bold' fontSize='lg'>
         あなたの評価
       </Text>
-      <Flex justify='center' my={4}>
+      <Flex mx={{ base: 0, md: 36 }}>
         <Text lineHeight='30px' fontWeight='bold' fontSize={{ base: 'xs', md: 'md' }}>
           まぁまぁ面白い
         </Text>
-        <EvaluateStars point={point} setPoint={setPoint} />
+        <Spacer />
         <Text lineHeight='30px' fontWeight='bold' fontSize={{ base: 'xs', md: 'md' }}>
           とても面白い!
         </Text>
+      </Flex>
+      <Flex justify='center' mb={4}>
+        <EvaluateStars point={point} setPoint={setPoint} />
       </Flex>
       <Text fontWeight='bold' fontSize='lg'>
         あなたの感想
@@ -97,7 +101,7 @@ export const ReviewModal = (props: ReviewModalProps): JSX.Element => {
       if (review.length > 500) {
         showToaster('error', '感想は500文字以内にしてください');
       } else {
-        const res = await postReview(isbn, point, review, isPublished);
+        await postReview(isbn, point, review, isPublished);
         afterRequestHandler();
         showToaster('success', '送信しました');
         onClose();
@@ -111,7 +115,7 @@ export const ReviewModal = (props: ReviewModalProps): JSX.Element => {
   return (
     <Modal size='3xl' isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
-      <ModalContent>
+      <ModalContent w='90%'>
         <ModalHeader>
           <Text textAlign='center'>六人の嘘つきな大学生</Text>
           <Text textAlign='center' fontSize='sm'>

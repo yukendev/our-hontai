@@ -1,5 +1,5 @@
 import { Box, Center, Spinner } from '@chakra-ui/react';
-import { AlreadyReadButton } from '@components/atoms/AlreadyReadLabel';
+import { AlreadyReadButton } from '@components/atoms/AlreadyReadButton';
 import { RecordReadingButton } from '@components/atoms/RecordReadingButton';
 import { ReviewButton } from '@components/atoms/ReviewButton';
 import { useUserInfo } from 'client/hooks/useUserInfo';
@@ -18,8 +18,11 @@ export const BookInfoButtons = (props: BookInfoButtonsProps): JSX.Element => {
   const { isbn, isHistoryExist, isReviewExist, afterRequestHandler } = props;
   const { isLogedIn } = useUserInfo();
 
-  useEffect(() => {});
-  if (!isLogedIn || isHistoryExist == null || isReviewExist == null) {
+  if (!isLogedIn) {
+    return <></>;
+  }
+
+  if (isHistoryExist == null || isReviewExist == null) {
     return (
       <Center mt={16}>
         <Spinner />

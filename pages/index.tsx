@@ -2,6 +2,7 @@ import { Box, Flex } from '@chakra-ui/react';
 import { BookCarousel } from '@components/organisms/BookCarousel';
 import { Footer } from '@components/organisms/Footer';
 import { Header } from '@components/organisms/Header';
+import { TopInfoLabel } from '@components/organisms/TopInfoLabel';
 import { TopPageImage } from '@components/organisms/TopPageImage';
 import { YearLinkWrapper } from '@components/organisms/YearLinkWrapper';
 import { IBook } from 'interface/models/book';
@@ -13,18 +14,22 @@ type Props = { books: { [key: string]: IBook[] } };
 
 export default function Home(props: Props) {
   const { books } = props;
-  const years = Object.keys(books);
+  const years = Object.keys(books).reverse();
   return (
     <Flex flexDirection='column'>
       <Header />
       <TopPageImage />
-      <Box flex={1} my={16}>
+      <Box flex={1} my={{ base: 8, md: 16 }}>
+        <Box mx={2}>
+          <TopInfoLabel />
+        </Box>
+
         {years.map((year) => {
           const nominatedBooks = books[year];
           return <BookCarousel key={year} year={Number(year)} books={nominatedBooks} />;
         })}
       </Box>
-      <Box mb={16} mx='auto' maxWidth={800}>
+      <Box mb={16} mx='auto'>
         <YearLinkWrapper />
       </Box>
       <Footer />
@@ -34,7 +39,7 @@ export default function Home(props: Props) {
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
   // TOPページで掲載する年
-  const years = ['2020', '2021', '2022'];
+  const years = ['2023', '2022', '2021'];
 
   let books = {};
 

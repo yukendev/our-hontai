@@ -29,6 +29,8 @@ export const RecordReadingButton = (props: RecordReadingButtonProps): JSX.Elemen
 
   return (
     <Center
+      boxShadow='lg'
+      cursor='pointer'
       onClick={registerHandler}
       rounded={10}
       py={6}
@@ -36,6 +38,7 @@ export const RecordReadingButton = (props: RecordReadingButtonProps): JSX.Elemen
       mx={{ base: '24px', md: 'auto' }}
       maxWidth={600}
       bg={colors.green}
+      _hover={{ bg: colors.green_hover }}
     >
       {isLoading ? (
         <Spinner />

@@ -6,5 +6,5 @@ type BookImageProps = {
 
 export const BookImage = (props: BookImageProps): JSX.Element => {
   const { src } = props;
-  return <Image src={src} alt='本の表紙画像' />;
+  return <Image boxShadow='lg' src={src} alt='本の表紙画像' fallbackSrc='/NoImageBig.png' />;
 };

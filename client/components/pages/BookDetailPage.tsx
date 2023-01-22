@@ -1,10 +1,9 @@
 import { Box } from '@chakra-ui/react';
-import { AveragePoints } from '@components/organisms/AveragePoints';
 import { BookInfoButtons } from '@components/organisms/BookDetailButtons';
 import { BookInfo } from '@components/organisms/BookInfo';
 import { OurReview } from '@components/organisms/OurReview';
+import { useUserInfo } from 'client/hooks/useUserInfo';
 import { deleteReview, getBookStatus, getReviewByPage } from 'client/util/api';
-import { useMyToaster } from 'client/util/toaster';
 import { IBookInfo } from 'interface/bookInfo';
 import { IReview } from 'interface/models/review';
 import { useCallback, useEffect, useState } from 'react';
@@ -12,6 +11,7 @@ import { useCallback, useEffect, useState } from 'react';
 const useBookStatus = (isbn: number) => {
   const [isHistoryExist, setIsHistoryExist] = useState<boolean | undefined>();
   const [isReviewExist, setIsReviewExist] = useState<boolean | undefined>();
+  const { isLogedIn } = useUserInfo();
 
   const resetBookStatus = useCallback(async () => {
     setIsHistoryExist(undefined);
@@ -22,8 +22,13 @@ const useBookStatus = (isbn: number) => {
   }, [isbn]);
 
   useEffect(() => {
-    resetBookStatus();
-  }, [resetBookStatus]);
+    if (isLogedIn) {
+      resetBookStatus();
+    } else {
+      setIsHistoryExist(false);
+      setIsReviewExist(false);
+    }
+  }, [isLogedIn, resetBookStatus]);
 
   return {
     isReviewExist,

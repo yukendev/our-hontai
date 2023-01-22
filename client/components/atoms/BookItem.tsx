@@ -1,4 +1,4 @@
-import { Flex, Image } from '@chakra-ui/react';
+import { Box, Flex, Image } from '@chakra-ui/react';
 import { IBook } from 'interface/models/book';
 import Link from 'next/link';
 
@@ -18,17 +18,18 @@ export const BookItem = (props: { book: IBook }): JSX.Element => {
         position='relative'
       >
         {book.isGrandPrize && (
-          <Image
-            top={0}
-            left={0}
-            position='absolute'
-            htmlWidth='50px'
-            src='/prize.png'
-            alt='大賞アイコン'
-          />
+          <Box top={0} left={0} position='absolute'>
+            <Image htmlWidth='50px' src='/prize.png' alt='大賞アイコン' />
+          </Box>
         )}
 
-        <Image htmlWidth='120px' src={book.image} alt='表紙画像' />
+        <Image
+          crossOrigin='anonymous'
+          htmlWidth='120px'
+          src={book.image}
+          fallbackSrc='/NoImage.png'
+          alt='表紙画像'
+        />
       </Flex>
     </Link>
   );

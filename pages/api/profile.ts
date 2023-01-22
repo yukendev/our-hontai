@@ -21,7 +21,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             // 正常なリクエストの場合は、DBを更新
             const username = body.username;
             await UserService.updateUsername(session.user._id, username);
-            res.status(200);
+            res.status(200).json({});
           }
         }
 

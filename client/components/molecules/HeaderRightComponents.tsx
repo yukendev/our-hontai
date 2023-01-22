@@ -1,5 +1,4 @@
 import { LoginButton } from '@components/atoms/LoginButton';
-import { AboutThisSiteButton } from '@components/atoms/AboutThisSiteButton';
 import { Flex, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react';
 import { useUserInfo } from 'client/hooks/useUserInfo';
 import { IconImage } from '@components/atoms/IconImage';
