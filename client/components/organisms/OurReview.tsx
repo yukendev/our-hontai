@@ -25,6 +25,32 @@ export const OurReview = (props: OurReviewProps): JSX.Element => {
     }
   };
 
+  const renderReviewComponent = () => {
+    if (reviews == null) {
+      return (
+        <Center mt={16}>
+          <Spinner />
+        </Center>
+      );
+    }
+
+    if (reviews.length === 0) {
+      return (
+        <Center>
+          <Text>まだ感想が投稿されていません</Text>
+        </Center>
+      );
+    }
+
+    return reviews.map((review, idx) => {
+      return (
+        <Box my={6} key={idx}>
+          <Review deleteHandler={deleteHandler} review={review} />
+        </Box>
+      );
+    });
+  };
+
   return (
     <Box mb={16}>
       <Text mb={6} fontWeight='bold'>
@@ -40,19 +66,7 @@ export const OurReview = (props: OurReviewProps): JSX.Element => {
           </Center>
         }
       >
-        {reviews == null ? (
-          <Center mt={16}>
-            <Spinner />
-          </Center>
-        ) : (
-          reviews.map((review, idx) => {
-            return (
-              <Box my={6} key={idx}>
-                <Review deleteHandler={deleteHandler} review={review} />
-              </Box>
-            );
-          })
-        )}
+        {renderReviewComponent()}
       </InfiniteScroll>
     </Box>
   );
