@@ -1,6 +1,6 @@
 [
   {
-    "origin": ["https://our-hontai.com", "http://localhost:3000"],
+    "origin": ["https://our-hontai.com", "http://localhost:3000", "https://our-hontai.vercel.app/"],
     "method": ["GET"],
     "responseHeader": ["Content-Type", "Access-Control-Allow-Origin"],
     "maxAgeSeconds": 300
