@@ -7,5 +7,14 @@ type IconImageProps = {
 };
 export const IconImage = (props: IconImageProps): JSX.Element => {
   const { size, src } = props;
-  return <Image src={src} rounded='full' width={size} height={size} alt='icon image' />;
+  return (
+    <Image
+      crossOrigin='anonymous'
+      src={src}
+      rounded='full'
+      width={size}
+      height={size}
+      alt='icon image'
+    />
+  );
 };
