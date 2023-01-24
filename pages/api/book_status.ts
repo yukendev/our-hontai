@@ -1,6 +1,7 @@
 import { ReviewModal } from '@components/organisms/ReviewModal';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { unstable_getServerSession } from 'next-auth';
+import { connectDB } from 'server/middlewares/mongoose';
 import { BookModel } from 'server/models/book';
 import { BookHistoryModel } from 'server/models/bookHistory';
 import { ReviewModel } from 'server/models/review';
@@ -48,5 +49,5 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 };
 
-// export default connectDB(handler);
-export default handler;
+export default connectDB(handler);
+// export default handler;
