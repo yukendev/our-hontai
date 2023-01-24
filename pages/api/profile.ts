@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { unstable_getServerSession } from 'next-auth';
+import { connectDB } from 'server/middlewares/mongoose';
 import { UserService } from 'server/services/user';
 import { authOptions } from './auth/[...nextauth]';
 
@@ -34,5 +35,5 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 };
 
-// export default connectDB(handler);
-export default handler;
+export default connectDB(handler);
+// export default handler;
