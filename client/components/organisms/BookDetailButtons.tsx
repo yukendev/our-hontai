@@ -8,14 +8,14 @@ import { IBookInfo } from 'interface/bookInfo';
 import { useCallback, useEffect, useState } from 'react';
 
 type BookInfoButtonsProps = {
-  isbn: number;
+  bookInfo: IBookInfo;
   isHistoryExist: boolean | undefined;
   isReviewExist: boolean | undefined;
   afterRequestHandler: () => void;
 };
 
 export const BookInfoButtons = (props: BookInfoButtonsProps): JSX.Element => {
-  const { isbn, isHistoryExist, isReviewExist, afterRequestHandler } = props;
+  const { bookInfo, isHistoryExist, isReviewExist, afterRequestHandler } = props;
   const { isLogedIn } = useUserInfo();
 
   if (!isLogedIn) {
@@ -34,19 +34,19 @@ export const BookInfoButtons = (props: BookInfoButtonsProps): JSX.Element => {
     <Box>
       {isHistoryExist && (
         <Box my={8}>
-          <AlreadyReadButton isbn={isbn} afterRequestHandler={afterRequestHandler} />
+          <AlreadyReadButton isbn={bookInfo.isbn} afterRequestHandler={afterRequestHandler} />
         </Box>
       )}
 
       {isHistoryExist && !isReviewExist && (
         <Box my={8}>
-          <ReviewButton isbn={isbn} afterRequestHandler={afterRequestHandler} />
+          <ReviewButton bookInfo={bookInfo} afterRequestHandler={afterRequestHandler} />
         </Box>
       )}
 
       {!isHistoryExist && (
         <Box my={8}>
-          <RecordReadingButton isbn={isbn} afterRequestHandler={afterRequestHandler} />
+          <RecordReadingButton isbn={bookInfo.isbn} afterRequestHandler={afterRequestHandler} />
         </Box>
       )}
     </Box>

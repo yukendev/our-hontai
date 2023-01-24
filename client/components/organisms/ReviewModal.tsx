@@ -18,6 +18,7 @@ import {
 import { PointStar } from '@components/atoms/PointStar';
 import { postReview } from 'client/util/api';
 import { useMyToaster } from 'client/util/toaster';
+import { IBookInfo } from 'interface/bookInfo';
 import { useState } from 'react';
 
 const EvaluateStars = (props: {
@@ -81,14 +82,14 @@ const ReviewModalBody = (props: ReviewModalBodyProps): JSX.Element => {
 };
 
 type ReviewModalProps = {
-  isbn: number;
+  bookInfo: IBookInfo;
   isOpen: boolean;
   onClose: () => void;
   afterRequestHandler: () => void;
 };
 
 export const ReviewModal = (props: ReviewModalProps): JSX.Element => {
-  const { isbn, isOpen, onClose, afterRequestHandler } = props;
+  const { bookInfo, isOpen, onClose, afterRequestHandler } = props;
   const [isSending, setIsSending] = useState<boolean>(false);
   const [point, setPoint] = useState<number>(5);
   const [review, setReview] = useState<string>('');
@@ -101,7 +102,7 @@ export const ReviewModal = (props: ReviewModalProps): JSX.Element => {
       if (review.length > 500) {
         showToaster('error', '感想は500文字以内にしてください');
       } else {
-        await postReview(isbn, point, review, isPublished);
+        await postReview(bookInfo.isbn, point, review, isPublished);
         afterRequestHandler();
         showToaster('success', '送信しました');
         onClose();
@@ -117,9 +118,9 @@ export const ReviewModal = (props: ReviewModalProps): JSX.Element => {
       <ModalOverlay />
       <ModalContent w='90%'>
         <ModalHeader>
-          <Text textAlign='center'>六人の嘘つきな大学生</Text>
+          <Text textAlign='center'>{bookInfo.title}</Text>
           <Text textAlign='center' fontSize='sm'>
-            浅倉秋成
+            {bookInfo.author}
           </Text>
         </ModalHeader>
         <ModalCloseButton />
