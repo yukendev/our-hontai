@@ -6,7 +6,8 @@ export const extractData = (obj: any) => {
   const publisher = summary.publisher as string;
   const context = onix.CollateralDetail.TextContent;
   const outline = context
-    ? (context.filter((obj: { TextType: string }) => obj.TextType == '03')[0].Text as string)
+    ? (context.filter((obj: { TextType: string }) => obj.TextType == '03' || '02' || '01')[0]
+        .Text as string)
     : null;
 
   return {
