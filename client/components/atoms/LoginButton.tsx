@@ -14,10 +14,17 @@ import {
   Link,
   Box,
   Image,
+  Spinner,
 } from '@chakra-ui/react';
+import { useState } from 'react';
 
 const LoginModal = (props: { isOpen: boolean; onClose: () => void }) => {
   const { isOpen, onClose } = props;
+  const [isLoading, setIsLoading] = useState(false);
+  const signInHandler = () => {
+    setIsLoading(true);
+    signIn('google');
+  };
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
@@ -26,9 +33,15 @@ const LoginModal = (props: { isOpen: boolean; onClose: () => void }) => {
         <ModalCloseButton />
         <ModalBody>
           <Center p={8}>
-            <Button boxShadow='lg' onClick={() => signIn('google')}>
-              <Image w={8} src='/google.png' alt='google icon' />
-              login with google
+            <Button boxShadow='lg' onClick={() => signInHandler()}>
+              {isLoading ? (
+                <Spinner />
+              ) : (
+                <>
+                  <Image w={8} src='/google.png' alt='google icon' />
+                  login with google
+                </>
+              )}
             </Button>
           </Center>
           <Text mb={4}>
