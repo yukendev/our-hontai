@@ -1,14 +1,15 @@
 import { Box, Center, Text, useDisclosure } from '@chakra-ui/react';
 import { ReviewModal } from '@components/organisms/ReviewModal';
 import { colors } from 'client/styles/colors';
+import { IBookInfo } from 'interface/bookInfo';
 
 type ReviewButtonProps = {
-  isbn: number;
+  bookInfo: IBookInfo;
   afterRequestHandler: () => void;
 };
 
 export const ReviewButton = (props: ReviewButtonProps): JSX.Element => {
-  const { isbn, afterRequestHandler } = props;
+  const { bookInfo, afterRequestHandler } = props;
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <Box>
@@ -29,7 +30,7 @@ export const ReviewButton = (props: ReviewButtonProps): JSX.Element => {
         </Text>
       </Center>
       <ReviewModal
-        isbn={isbn}
+        bookInfo={bookInfo}
         isOpen={isOpen}
         onClose={onClose}
         afterRequestHandler={afterRequestHandler}

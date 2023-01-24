@@ -80,7 +80,7 @@ export const BookDetailPage = (props: IBookInfo): JSX.Element => {
     <Box my={{ base: '16px', md: '24px' }} maxWidth={800} mx={{ base: '24px', md: 'auto' }}>
       <BookInfo {...props} />
       <BookInfoButtons
-        isbn={props.isbn}
+        bookInfo={props}
         isHistoryExist={isHistoryExist}
         isReviewExist={isReviewExist}
         afterRequestHandler={afterRequestHandler}
