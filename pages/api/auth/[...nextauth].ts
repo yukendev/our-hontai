@@ -3,6 +3,7 @@ import NextAuth from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
 import { UserService } from 'server/services/user';
 import type { NextAuthOptions } from 'next-auth';
+import { setupMongo } from 'server/utils/mongoose';
 
 export const authOptions: NextAuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
@@ -15,6 +16,7 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     async signIn({ user }) {
       try {
+        await setupMongo();
         const userInDb = await UserService.getByEmail(user.email ?? '');
 
         // サインインの時、DBにユーザーがなければ作成
