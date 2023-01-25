@@ -10,6 +10,7 @@ export const IconImage = (props: IconImageProps): JSX.Element => {
   return (
     <Image
       crossOrigin='anonymous'
+      fallbackSrc='/default_icon.png'
       src={src}
       rounded='full'
       width={size}
