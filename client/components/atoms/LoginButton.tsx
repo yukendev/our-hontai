@@ -29,7 +29,7 @@ const LoginModal = (props: { isOpen: boolean; onClose: () => void }) => {
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
       <ModalContent w='90%'>
-        <ModalHeader>みんなで本屋大賞へようこそ</ModalHeader>
+        <ModalHeader>みんなの本屋大賞へようこそ</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
           <Center p={8}>

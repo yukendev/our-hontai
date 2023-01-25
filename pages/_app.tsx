@@ -39,14 +39,14 @@ export default function App({ Component, pageProps: { session, ...pageProps } }:
         }}
       />
       <DefaultSeo
-        defaultTitle='みんなで本屋大賞'
+        defaultTitle='みんなの本屋大賞'
         description='本屋大賞ファンによる、本屋大賞ファンのためのサービスです。最新の本屋大賞ノミネート作品から、過去のノミネート作品までまとめています。Googleアカウントと連携をすることで感想を投稿したり、自分だけの読書記録を作ることもできます'
         openGraph={{
           type: 'website',
-          title: 'みんなで本屋大賞',
+          title: 'みんなの本屋大賞',
           description:
             '本屋大賞ファンによる、本屋大賞ファンのためのサービスです。最新の本屋大賞ノミネート作品から、過去のノミネート作品までまとめています。Googleアカウントと連携をすることで感想を投稿したり、自分だけの読書記録を作ることもできます',
-          site_name: 'みんなで本屋大賞',
+          site_name: 'みんなの本屋大賞',
           url: 'https://our-hontai.com',
           images: [
             {
