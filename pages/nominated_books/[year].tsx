@@ -7,6 +7,7 @@ import { GetStaticPaths, GetStaticProps } from 'next';
 import { BookService } from 'server/services/book';
 import { NextSeo } from 'next-seo';
 import { setupMongo } from 'server/utils/mongoose';
+import { YearLinkWrapper } from '@components/organisms/YearLinkWrapper';
 
 type PageProps = {
   year: number;
@@ -25,6 +26,9 @@ export default function NominatedBooksPage(props: PageProps) {
         <Header />
         <Box my={16} flex={1}>
           <BookList year={year} books={books} />
+        </Box>
+        <Box mb={16} mx='auto'>
+          <YearLinkWrapper />
         </Box>
         <Footer />
       </Flex>
