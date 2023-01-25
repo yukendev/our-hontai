@@ -23,11 +23,10 @@ export const extractData = (obj: any) => {
   } else {
     outline = null;
   }
-  if (outline03)
-    return {
-      title,
-      author,
-      publisher,
-      outline,
-    };
+  return {
+    title,
+    author,
+    publisher,
+    outline,
+  };
 };
