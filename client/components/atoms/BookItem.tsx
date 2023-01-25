@@ -16,6 +16,8 @@ export const BookItem = (props: { book: IBook }): JSX.Element => {
         width={160}
         boxShadow='lg'
         position='relative'
+        _hover={{ bg: 'gray.200' }}
+        _active={{ bg: 'gray.300' }}
       >
         {book.isGrandPrize && (
           <Box top={0} left={0} position='absolute'>
