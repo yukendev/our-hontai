@@ -63,7 +63,7 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
       Object.assign(books, obj);
     });
   } catch (err) {
-    console.log(err);
+    console.log('err', err);
   }
 
   const jsonData = JSON.parse(JSON.stringify(books));
