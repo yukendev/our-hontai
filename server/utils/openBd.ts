@@ -14,11 +14,11 @@ export const extractData = (obj: any) => {
   //       .Text as string)
   //   : null;
   let outline;
-  if (outline03) {
+  if (outline03.length != 0) {
     outline = outline03[0].Text;
-  } else if (outline02) {
+  } else if (outline02.length != 0) {
     outline = outline02[0].Text;
-  } else if (outline01) {
+  } else if (outline01.length != 0) {
     outline = outline01[0].Text;
   } else {
     outline = null;
