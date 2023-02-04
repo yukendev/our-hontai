@@ -45,6 +45,7 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
   // TOPページで掲載する年
   const years = ['2023', '2022', '2021'];
 
+  // 表示する本
   let books = {};
 
   try {
